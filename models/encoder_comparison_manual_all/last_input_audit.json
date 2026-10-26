@@ -1,0 +1,6 @@
+{
+  "sha256_read_now": 0,
+  "previous_audit_reused_by_mtime_and_size": 2409,
+  "reuse_input_audit": true,
+  "note": "Reuse is a filesystem metadata cache, not a fresh cryptographic verification."
+}

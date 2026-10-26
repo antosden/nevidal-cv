@@ -1,0 +1,22 @@
+{
+  "available_images": 1283,
+  "available_manual": 784,
+  "poi_count": 23,
+  "released_images": 1263,
+  "splits": {
+    "train": 886,
+    "val": 191,
+    "test": 186
+  },
+  "previous_released_images": 993,
+  "previous_images_now_excluded": 1,
+  "previous_released_split_changes": 0,
+  "manual_files_missing_from_manifest": 0,
+  "manual_attribution_valid": true,
+  "negative_splits_unchanged": true,
+  "exclusions": {
+    "removed_by_user": 104,
+    "exact_duplicate": 13,
+    "exact_label_conflict": 7
+  }
+}

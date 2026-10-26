@@ -1,0 +1,21 @@
+{
+  "score_threshold": 0.7739149726927278,
+  "margin_threshold": 0.059470639626185054,
+  "true_accept_rate": 0.2513089005235602,
+  "known_wrong_far": 0.0009519276534983341,
+  "hard_wrong_far": 0.020942408376963352,
+  "tp": 48,
+  "fp": 4,
+  "external_any_poi_far": 0.008726003490401396,
+  "external_false_accepts": 5,
+  "calibration_split": "val",
+  "target_known_wrong_far": 0.01,
+  "target_hard_wrong_far": 0.05,
+  "negative_scope": "other_known_poi_and_external_unknown",
+  "external_unknown_calibrated": true,
+  "score_type": "max_gallery_cosine_not_probability",
+  "tie_rule": "reject",
+  "decision_rule": "score >= score_threshold AND margin >= margin_threshold AND margin > 0",
+  "external_calibration_split": "negative_val",
+  "target_external_any_poi_far": 0.01
+}

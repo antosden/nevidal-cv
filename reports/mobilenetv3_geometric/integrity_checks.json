@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "old_models_unchanged": true,
+  "input_splits_unchanged": true,
+  "gallery_train_only": true,
+  "validation_selection_reproduced": true,
+  "validation_policy_reproduced": true,
+  "all_metrics_reproduced": true,
+  "raw_single_inference_checks": 4,
+  "maximum_score_difference": 2.553491225132376e-07,
+  "executed_notebook_cells": 6
+}

@@ -1,0 +1,9 @@
+{
+  "seed": 42,
+  "ridge_alphas": [0.01, 0.1, 1.0],
+  "include_gallery_control": true,
+  "target_known_wrong_far": 0.01,
+  "target_hard_wrong_far": 0.05,
+  "target_external_far": 0.01,
+  "selection": "validation_true_accept_then_macro_f1_then_accuracy"
+}

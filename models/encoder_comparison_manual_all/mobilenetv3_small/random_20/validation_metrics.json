@@ -1,0 +1,21 @@
+{
+  "query_count": 191,
+  "positive_pairs": 191,
+  "known_wrong_pairs": 4202,
+  "top1_accuracy": 0.7015706806282722,
+  "macro_top1_accuracy": 0.6866278269341762,
+  "true_accept_rate": 0.2774869109947644,
+  "false_reject_rate": 0.7225130890052356,
+  "known_wrong_far": 0.00023798191337458352,
+  "true_accepts": 53,
+  "wrong_accepts": 1,
+  "hard_wrong_far": 0.005235602094240838,
+  "accepted_pair_precision": 0.9814814814814815,
+  "macro_true_accept_rate": 0.2544680253954134,
+  "open_set_far": 0.008726003490401396,
+  "external_unknown_tested": true,
+  "accuracy": 0.7015706806282722,
+  "macro_f1": 0.6529814118117803,
+  "external_any_poi_far": 0.008726003490401396,
+  "open_set_far_definition": "any_poi_per_external_image"
+}

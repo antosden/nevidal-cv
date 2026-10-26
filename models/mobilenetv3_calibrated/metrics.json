@@ -1,0 +1,62 @@
+{
+  "val": {
+    "query_count": 151,
+    "positive_pairs": 151,
+    "known_wrong_pairs": 3322,
+    "top1_accuracy": 0.8543046357615894,
+    "macro_top1_accuracy": 0.854399585921325,
+    "true_accept_rate": 0.6291390728476821,
+    "false_reject_rate": 0.3708609271523179,
+    "known_wrong_far": 0.0,
+    "true_accepts": 95,
+    "wrong_accepts": 0,
+    "hard_wrong_far": 0.0,
+    "accepted_pair_precision": 1.0,
+    "macro_true_accept_rate": 0.5945652173913043,
+    "open_set_far": 0.008726003490401396,
+    "external_unknown_tested": true,
+    "accuracy": 0.8543046357615894,
+    "macro_f1": 0.8415095120102525,
+    "open_set_far_definition": "any_poi_per_external_image"
+  },
+  "negative_val": {
+    "images": 573,
+    "false_accepts_any_poi": 5,
+    "any_poi_far": 0.008726003490401396,
+    "rejection_rate": 0.9912739965095986,
+    "all_target_pairs": 13179,
+    "false_accepted_pairs": 5,
+    "uniform_target_pair_far": 0.00037939145610440855,
+    "poi_identity_disjoint_between_negative_val_test": true
+  },
+  "test": {
+    "query_count": 146,
+    "positive_pairs": 146,
+    "known_wrong_pairs": 3212,
+    "top1_accuracy": 0.8493150684931506,
+    "macro_top1_accuracy": 0.8556418219461698,
+    "true_accept_rate": 0.4589041095890411,
+    "false_reject_rate": 0.5410958904109588,
+    "known_wrong_far": 0.0,
+    "true_accepts": 67,
+    "wrong_accepts": 0,
+    "hard_wrong_far": 0.0,
+    "accepted_pair_precision": 1.0,
+    "macro_true_accept_rate": 0.392184265010352,
+    "open_set_far": 0.0506108202443281,
+    "external_unknown_tested": true,
+    "accuracy": 0.8493150684931506,
+    "macro_f1": 0.8462790522320742,
+    "open_set_far_definition": "any_poi_per_external_image"
+  },
+  "negative_test": {
+    "images": 573,
+    "false_accepts_any_poi": 29,
+    "any_poi_far": 0.0506108202443281,
+    "rejection_rate": 0.9493891797556719,
+    "all_target_pairs": 13179,
+    "false_accepted_pairs": 29,
+    "uniform_target_pair_far": 0.0022004704454055696,
+    "poi_identity_disjoint_between_negative_val_test": true
+  }
+}

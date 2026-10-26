@@ -1,0 +1,12 @@
+{
+  "negative_poi_candidates": 25,
+  "target_poi_overlap": 0,
+  "initial_status": "pending",
+  "initial_label_status": "needs_review",
+  "parser_load": "passed",
+  "progress_extra_columns": "passed",
+  "download_started": false,
+  "max_images_at_50_per_poi": 1250,
+  "config_sha256": "ea1f0908bf3e485f2305b265563adc41c2490ada6fd36bf11aa8837caaeb92f5",
+  "output_root": "data/raw/wikimedia_negatives"
+}

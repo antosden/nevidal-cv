@@ -1,0 +1,15 @@
+city,district,poi,category,status,downloaded_count,last_error,progress_key
+moscow,ostankinskiy,main_entrance,VDNKh Main Entrance Arch,done,50,,65afda4c1e6a8ce3317171e82cb71dfe4cfeb3e5eeaf23502eaac10b050ccc09
+moscow,ostankinskiy,ostankino_tower,Ostankino Tower,done,28,,a1aecb5a9abd3642b6256404170ee1196f810f4d888e548e8b35e753b7846e7c
+moscow,ostankinskiy,armenia,VDNKh Armenia Pavilion (No 68),done,50,,1a81c5e86a243e787bd23c8fa3946bff79761cfaa222a5351cc3a8f31505babd
+moscow,ostankinskiy,cosmos,VDNKh Space Pavilion (No 32-34),done,50,,064ee1355e7bec41d77d9a80919a706280e8feb53187c167aefa80dbcb9c7c03
+moscow,ostankinskiy,moscow_sun,Moscow Sun,done,10,,6c98ee26532fc50c7594bf33f09446faca5696e2364fb05f5802aa145324fe37
+moscow,ostankinskiy,central_pavilion,VDNKh Central pavilion (No 1),done,50,,1ca052fa8b6b61de5abe6c78498599e6428cb87fed7adb14a59b6ee329d2b61a
+moscow,khamovniki,pushkin_museum,Exterior views of the Pushkin Museum,done,50,,e1acc670f09953fe2d6de2fd39681f258242c591c3db0640c739d46af3fa210b
+moscow,arbat,pashkov_house,Pashkov house - exteriors,done,50,,9596d2c08c2ca61d52a63649c45d4ac1af49689fff1b96801cd2ed0a0e6f1a4c
+moscow,arbat,arseny_morozov_house,Arseny Morozov House on Vozdvizhenka,done,50,,f2b8adb24984bc12f0540a06833f1a4b25ab44ecee17fa923a4fe4555d13701b
+moscow,khamovniki,khrushchev_seleznev_house,Khrushev-Seleznevs' house,done,47,,3d299dd19c9a0fec3461fbfc399a8f9c69b66c6ee6d1fd869587abcc4ec38494
+moscow,tverskoy,bolshoi_theatre,Exterior of the Bolshoi Theatre,done,50,,22b06b17f7b4f1aa0f2b9f542f7781fc7002fc4c5eea35a590d1c67798c40d48
+moscow,tverskoy,maly_theatre,Buildings of Maly Theatre,done,49,,d1236326478b32c49f88ab8486b529bec39ab55f8ae7193cdd12588ee4319b6c
+moscow,tverskoy,hotel_metropol,Hotel Metropol (Moscow),done,50,,66779772da31a6774a4686fd7b67e63c19a10ab11cea58629a773851dce82317
+moscow,tverskoy,hotel_national,Hotel National (Moscow) - exterior,done,19,,deb253b0730603b7c80c35fe5020c096674f36db113a132b58dca0e6a320ae21

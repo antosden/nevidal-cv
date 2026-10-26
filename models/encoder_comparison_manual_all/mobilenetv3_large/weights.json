@@ -1,0 +1,7 @@
+{
+  "file": ".runtime/torch/checkpoints/mobilenet_v3_large-5c1a4163.pth",
+  "sha256": "5c1a416349c4cf298f2a6a5e2600ed0ee55e604713578f5e74e6bc8bcaef7997",
+  "official_url": "https://download.pytorch.org/models/mobilenet_v3_large-5c1a4163.pth",
+  "transform": "ImageClassification(\n    crop_size=[224]\n    resize_size=[232]\n    mean=[0.485, 0.456, 0.406]\n    std=[0.229, 0.224, 0.225]\n    interpolation=InterpolationMode.BILINEAR\n)",
+  "torch": "2.14.1+cpu"
+}

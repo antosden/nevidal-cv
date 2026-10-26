@@ -1,0 +1,35 @@
+.venv/
+_archive/
+.runtime/
+# В data сохраняем в Git только разметку и метаданные CSV/JSON.
+# Папки открыты для обхода, чтобы вложенные таблицы не потерялись.
+/data/**/*
+!/data/**/
+!/data/**/*.csv
+!/data/**/*.json
+
+# Фотографии, превью, contact sheets и другие растровые изображения — везде.
+*.[jJ][pP][gG]
+*.[jJ][pP][eE][gG]
+*.[jJ][pP][eE]
+*.[jJ][fF][iI][fF]
+*.[pP][nN][gG]
+*.[wW][eE][bB][pP]
+*.[gG][iI][fF]
+*.[bB][mM][pP]
+*.[tT][iI][fF]
+*.[tT][iI][fF][fF]
+*.[mM][pP][oO]
+*.[hH][eE][iI][cC]
+*.[hH][eE][iI][fF]
+*.[aA][vV][iI][fF]
+*.[jJ][xX][lL]
+*.[dD][nN][gG]
+*.[cC][rR]2
+*.[cC][rR]3
+*.[nN][eE][fF]
+*.[aA][rR][wW]
+__pycache__/
+.ipynb_checkpoints/
+.pytest_cache/
+.env

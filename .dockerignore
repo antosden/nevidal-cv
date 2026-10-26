@@ -1,0 +1,21 @@
+# В build context включаются inference-код и готовый bundle. Raw-фото исключены.
+**
+!Dockerfile
+!requirements-service.txt
+!src/
+!src/__init__.py
+!src/poi_baseline.py
+!src/frozen_encoders.py
+!src/poi_inference.py
+!service/
+!service/*.py
+!service/index.html
+!models/
+!models/poi_service_dinov2/
+!models/poi_service_dinov2/metadata.json
+!models/poi_service_dinov2/weights.pth
+!models/poi_service_dinov2/gallery.csv
+!models/poi_service_dinov2/gallery_embeddings.npy
+!models/poi_service_dinov2/class_mapping.json
+!models/poi_service_dinov2/rejection_policy.json
+!models/poi_service_dinov2/provenance.json

@@ -1,0 +1,62 @@
+{
+  "val": {
+    "query_count": 151,
+    "positive_pairs": 151,
+    "known_wrong_pairs": 3322,
+    "top1_accuracy": 0.8675496688741722,
+    "macro_top1_accuracy": 0.867080745341615,
+    "true_accept_rate": 0.3708609271523179,
+    "false_reject_rate": 0.6291390728476821,
+    "known_wrong_far": 0.0,
+    "true_accepts": 56,
+    "wrong_accepts": 0,
+    "hard_wrong_far": 0.0,
+    "accepted_pair_precision": 1.0,
+    "macro_true_accept_rate": 0.31345755693581784,
+    "open_set_far": 0.008726003490401396,
+    "external_unknown_tested": true,
+    "accuracy": 0.8675496688741722,
+    "macro_f1": 0.8558907829132625,
+    "open_set_far_definition": "any_poi_per_external_image"
+  },
+  "negative_val": {
+    "images": 573,
+    "false_accepts_any_poi": 5,
+    "any_poi_far": 0.008726003490401396,
+    "rejection_rate": 0.9912739965095986,
+    "all_target_pairs": 13179,
+    "false_accepted_pairs": 5,
+    "uniform_target_pair_far": 0.00037939145610440855,
+    "poi_identity_disjoint_between_negative_val_test": true
+  },
+  "test": {
+    "query_count": 146,
+    "positive_pairs": 146,
+    "known_wrong_pairs": 3212,
+    "top1_accuracy": 0.8493150684931506,
+    "macro_top1_accuracy": 0.8556418219461698,
+    "true_accept_rate": 0.3082191780821918,
+    "false_reject_rate": 0.6917808219178082,
+    "known_wrong_far": 0.0,
+    "true_accepts": 45,
+    "wrong_accepts": 0,
+    "hard_wrong_far": 0.0,
+    "accepted_pair_precision": 1.0,
+    "macro_true_accept_rate": 0.3057453416149068,
+    "open_set_far": 0.010471204188481676,
+    "external_unknown_tested": true,
+    "accuracy": 0.8493150684931506,
+    "macro_f1": 0.8470354722676704,
+    "open_set_far_definition": "any_poi_per_external_image"
+  },
+  "negative_test": {
+    "images": 573,
+    "false_accepts_any_poi": 6,
+    "any_poi_far": 0.010471204188481676,
+    "rejection_rate": 0.9895287958115183,
+    "all_target_pairs": 13179,
+    "false_accepted_pairs": 6,
+    "uniform_target_pair_far": 0.00045526974732529026,
+    "poi_identity_disjoint_between_negative_val_test": true
+  }
+}

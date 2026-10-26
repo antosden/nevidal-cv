@@ -1,0 +1,10 @@
+{
+  "method": "Jupyter kernel via nbclient",
+  "python": "3.12.14",
+  "pandas": "3.0.1",
+  "numpy": "2.3.5",
+  "opencv": "4.14.0",
+  "matplotlib": "3.11.2",
+  "secondary_site_packages": true,
+  "reused_current_inventory": true
+}

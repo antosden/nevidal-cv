@@ -1,0 +1,7 @@
+{
+  "target_known_wrong_far": 0.01,
+  "target_hard_wrong_far": 0.05,
+  "target_external_far": 0.01,
+  "score_grid_size": 101,
+  "margin_grid_size": 81
+}

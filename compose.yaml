@@ -1,0 +1,27 @@
+name: nevidal-poi
+services:
+  poi-api:
+    image: nevidal-poi:local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:${POI_PORT:-8000}:8000"
+    environment:
+      MODEL_DIR: /models
+      MAX_UPLOAD_MB: "10"
+      MAX_IMAGE_PIXELS: "40000000"
+      MAX_INFLIGHT_REQUESTS: "2"
+      CPU_THREADS: "4"
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    init: true
+    mem_limit: 2g
+    pids_limit: 128
+    restart: unless-stopped
+    stop_grace_period: 30s

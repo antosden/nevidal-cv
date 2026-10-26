@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "parent_baseline_unchanged": true,
+  "input_splits_unchanged": true,
+  "selected_epoch_matches_validation_history": true,
+  "checkpoint_weights_match_export": true,
+  "train_gallery_reproduced": true,
+  "val_policy_reproduced": true,
+  "val_test_metrics_reproduced": true,
+  "cache_image_hashes_checked": 2139,
+  "raw_sources_hashed_at_cache_creation": true,
+  "fresh_embedding_and_raw_inference_checks": 6,
+  "max_embedding_error": 0.0,
+  "executed_notebook_cells": 5
+}

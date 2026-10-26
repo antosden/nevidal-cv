@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "gallery_train_only": true,
+  "calibration_val_only": true,
+  "test_not_used_for_thresholds": true,
+  "all_image_sha256_checked": true,
+  "split_overlap_checks": "passed"
+}

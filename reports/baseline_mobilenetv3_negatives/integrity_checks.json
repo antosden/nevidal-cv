@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "raw_images_checked": 1149,
+  "positive_baseline_unchanged": true,
+  "positive_splits_unchanged": true,
+  "gallery_unchanged": true,
+  "poi_and_duplicate_groups_disjoint": true,
+  "negative_split_reproduced": true,
+  "val_only_thresholds_reproduced": true,
+  "val_test_metrics_reproduced": true,
+  "fresh_embedding_checks": 3,
+  "max_embedding_error": 0.0,
+  "executed_notebook_cells": 6
+}

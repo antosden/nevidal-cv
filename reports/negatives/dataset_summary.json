@@ -1,0 +1,24 @@
+{
+  "audit_records": 1151,
+  "existing_images": 1149,
+  "removed_by_user": 2,
+  "unreadable": 0,
+  "positive_overlap_candidates": 3,
+  "exact_duplicate_excluded": 0,
+  "released_images": 1146,
+  "split_counts": {
+    "val": 573,
+    "test": 573
+  },
+  "split_poi_counts": {
+    "val": 13,
+    "test": 12
+  },
+  "unknown_authors": 5,
+  "unknown_licences": 0,
+  "user_review_confirmed": true,
+  "seed": 42,
+  "split_method": "disjoint_POI_and_duplicate_components",
+  "cross_positive_overlap_excluded": true,
+  "raw_images_modified": false
+}

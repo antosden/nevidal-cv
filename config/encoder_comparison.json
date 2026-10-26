@@ -1,0 +1,12 @@
+{
+  "seed": 42,
+  "encoders": ["mobilenetv3_small", "mobilenetv3_large", "dinov2_small"],
+  "gallery_sizes": [5, 10, 20, "all"],
+  "gallery_methods": ["diverse", "random"],
+  "batch_size": 16,
+  "target_known_wrong_far": 0.01,
+  "target_hard_wrong_far": 0.05,
+  "target_external_far": 0.01,
+  "score_grid_size": 81,
+  "margin_grid_size": 61
+}

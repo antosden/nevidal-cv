@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Невидаль — распознавание POI</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #162d30; background: #f4f6f2; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 1000px; margin: 0 auto; padding: 38px 22px 60px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
+    .brand { font-size: 21px; font-weight: 800; letter-spacing: -.6px; }
+    a { color: #285f51; text-underline-offset: 4px; }
+    h1 { font-size: clamp(30px, 5vw, 44px); letter-spacing: -1.5px; line-height: 1.1; margin: 0 0 16px; }
+    .intro { color: #61716c; line-height: 1.6; max-width: 620px; margin-bottom: 30px; }
+    .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+    .card { background: #fff; border: 1px solid #dde4dc; border-radius: 22px; padding: 26px; min-width: 0; }
+    h2 { margin: 0 0 18px; font-size: 20px; letter-spacing: -.4px; }
+    label { display: block; font-weight: 600; margin-bottom: 12px; }
+    input[type=file] { width: 100%; font: inherit; font-size: 14px; padding: 16px; border: 1px dashed #9caf9e; border-radius: 12px; background: #fafcf8; }
+    input::file-selector-button { border: 0; border-radius: 7px; padding: 9px 12px; margin-right: 12px; background: #e6eee5; color: #254a3d; cursor: pointer; font: inherit; }
+    .hint { font-size: 13px; line-height: 1.55; color: #697873; }
+    .preview { width: 100%; max-height: 330px; object-fit: contain; border-radius: 12px; margin-top: 18px; background: #f3f5f1; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    button { font: inherit; font-weight: 600; border: 0; border-radius: 10px; padding: 13px 18px; cursor: pointer; }
+    .primary { background: #214f40; color: #fff; flex: 1; }
+    .secondary { color: #375247; background: #edf2eb; }
+    button:disabled { opacity: .45; cursor: default; }
+    :focus-visible { outline: 3px solid #81b399; outline-offset: 3px; }
+    .empty { color: #75817a; line-height: 1.7; padding: 28px 0; }
+    .badge { display: inline-block; border-radius: 20px; padding: 7px 12px; font-size: 13px; font-weight: 700; margin-bottom: 20px; }
+    .accepted { color: #175139; background: #e2f3e7; }
+    .rejected { color: #83551d; background: #fff1d9; }
+    .poi { font-size: 17px; font-weight: 650; line-height: 1.5; overflow-wrap: anywhere; }
+    .caption { color: #68786f; font-size: 13px; margin: 0 0 6px; }
+    .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 24px 0 12px; }
+    .metric { padding: 14px; background: #f4f7f2; border-radius: 12px; }
+    .metric strong { display: block; font-size: 22px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+    .reason { line-height: 1.6; font-size: 14px; color: #5d6f65; }
+    .candidates { padding-left: 21px; line-height: 1.6; font-size: 13px; }
+    .candidates li { margin: 9px 0; padding-left: 3px; overflow-wrap: anywhere; }
+    details { border-top: 1px solid #e4e9e1; margin-top: 22px; padding-top: 16px; }
+    summary { cursor: pointer; font-size: 14px; color: #375c49; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 400px; overflow-y: auto; font-size: 12px; background: #f4f7f2; border-radius: 10px; padding: 14px; }
+    .error { background: #fff0ed; border: 1px solid #efc8bf; color: #9b3323; padding: 14px; border-radius: 10px; line-height: 1.5; margin-top: 18px; }
+    #progress { font-size: 14px; color: #466b56; min-height: 22px; margin-top: 15px; }
+    footer { color: #748078; font-size: 12px; line-height: 1.6; margin-top: 24px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 700px) { .layout { grid-template-columns: 1fr; } main { padding: 24px 16px 40px; } header { margin-bottom: 30px; } .card { padding: 22px; } }
+  </style>
+</head>
+<body>
+<main>
+  <header><div class="brand">Невидаль<span aria-hidden="true"> ↗</span></div><a href="/docs">Документация API</a></header>
+  <h1>Что за место на фото?</h1>
+  <p class="intro">Выберите фотографию достопримечательности. Модель предложит наиболее похожий объект и покажет, удалось ли его подтвердить.</p>
+  <div class="layout">
+    <section class="card" aria-labelledby="upload-title">
+      <h2 id="upload-title">Ваша фотография</h2>
+      <form id="upload-form" action="/predict" method="post" enctype="multipart/form-data">
+        <label for="photo">Выберите файл</label>
+        <input id="photo" name="file" type="file" accept="image/jpeg,image/png,image/webp,.mpo" required aria-describedby="limits">
+        <p class="hint" id="limits"></p>
+        <img id="preview" class="preview" alt="Предпросмотр выбранной фотографии" hidden>
+        <p id="preview-note" class="hint" hidden>Предпросмотр недоступен. Файл можно отправить для проверки.</p>
+        <div class="actions">
+          <button class="primary" id="submit" type="submit" disabled>Распознать POI</button>
+          <button class="secondary" id="reset" type="reset" disabled>Сбросить</button>
+        </div>
+      </form>
+      <div id="progress" role="status" aria-live="polite"></div>
+      <div id="error" class="error" role="alert" hidden></div>
+    </section>
+    <section class="card" aria-labelledby="result-title" aria-busy="false" id="result-card">
+      <h2 id="result-title">Результат</h2>
+      <div id="empty" class="empty">Здесь появятся название POI, решение модели и наиболее похожие объекты.</div>
+      <div id="result" hidden>
+        <div id="decision" class="badge"></div>
+        <p class="caption" id="poi-caption"></p>
+        <div id="poi" class="poi"></div>
+        <p class="reason" id="reason"></p>
+        <div class="metrics">
+          <div class="metric"><span class="caption">Сходство (cosine)</span><strong id="score"></strong></div>
+          <div class="metric"><span class="caption">Отрыв от другого POI</span><strong id="margin"></strong></div>
+        </div>
+        <p class="hint">Значение сходства — не вероятность правильного ответа.</p>
+        <h3 style="font-size:15px;margin-top:24px">Наиболее похожие объекты</h3>
+        <ol id="candidates" class="candidates"></ol>
+        <details><summary>Полный ответ сервиса (JSON)</summary><pre id="json"></pre></details>
+      </div>
+    </section>
+  </div>
+  <footer>Экспериментальная модель. Подтверждение означает прохождение порогов модели и может быть ошибочным. Фотография не добавляется в датасет.</footer>
+</main>
+<script>
+  'use strict';
+  const maxBytes = __MAX_UPLOAD_BYTES__;
+  const form = document.getElementById('upload-form');
+  const input = document.getElementById('photo');
+  const submit = document.getElementById('submit');
+  const reset = document.getElementById('reset');
+  const preview = document.getElementById('preview');
+  const errorBox = document.getElementById('error');
+  const progress = document.getElementById('progress');
+  let previewURL = null;
+  let busy = false;
+  document.getElementById('limits').textContent = `JPEG, PNG, WebP или MPO · до ${Number((maxBytes / 1024 / 1024).toFixed(2))} MiB`;
+
+  function clearResult() {
+    document.getElementById('result').hidden = true;
+    document.getElementById('empty').hidden = false;
+    errorBox.hidden = true;
+    errorBox.textContent = '';
+    progress.textContent = '';
+  }
+  function clearPreview() {
+    preview.onload = null;
+    preview.onerror = null;
+    preview.hidden = true;
+    preview.removeAttribute('src');
+    document.getElementById('preview-note').hidden = true;
+    if (previewURL) URL.revokeObjectURL(previewURL);
+    previewURL = null;
+  }
+  function showError(message) { errorBox.textContent = message; errorBox.hidden = false; }
+
+  input.addEventListener('change', () => {
+    clearResult();
+    clearPreview();
+    const file = input.files[0];
+    submit.disabled = !file;
+    reset.disabled = !file;
+    if (!file) return;
+    if (file.size > maxBytes) { showError('Файл превышает допустимый размер. Выберите фотографию поменьше.'); submit.disabled = true; return; }
+    if (!file.size) { showError('Файл пуст. Выберите другую фотографию.'); submit.disabled = true; return; }
+    previewURL = URL.createObjectURL(file);
+    preview.onload = () => { preview.hidden = false; document.getElementById('preview-note').hidden = true; };
+    preview.onerror = () => { preview.hidden = true; document.getElementById('preview-note').hidden = false; };
+    preview.src = previewURL;
+  });
+
+  form.addEventListener('reset', () => {
+    clearResult(); clearPreview(); submit.disabled = true; reset.disabled = true;
+  });
+
+  const reasonMessages = {
+    poi_verified: 'Сходство с эталонами и отрыв от других объектов прошли пороги подтверждения.',
+    below_score_threshold: 'Сходства с эталонами недостаточно для подтверждения. Показан наиболее похожий объект.',
+    ambiguous_poi: 'Несколько объектов выглядят похоже. Модель не смогла уверенно выбрать один POI.',
+    tie: 'Получены одинаковые оценки для разных объектов. Подтверждение не выдано.'
+  };
+  const errorMessages = {
+    file_too_large: 'Файл слишком большой. Выберите фотографию меньшего размера.',
+    request_too_large: 'Файл слишком большой. Выберите фотографию меньшего размера.',
+    image_too_large: 'Слишком высокое разрешение изображения. Уменьшите его и отправьте снова.',
+    unsupported_format: 'Выберите фотографию в формате JPEG, PNG, WebP или MPO.',
+    animated_image: 'Анимированные изображения не поддерживаются. Выберите отдельную фотографию.',
+    empty_image: 'Файл пуст. Выберите другую фотографию.',
+    invalid_image: 'Не удалось прочитать изображение. Попробуйте другой файл.',
+    service_busy: 'Сервис занят. Повторите отправку через несколько секунд.'
+  };
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (busy || !input.files[0]) return;
+    clearResult();
+    busy = true;
+    const payload = new FormData(form);
+    input.disabled = true; submit.disabled = true; reset.disabled = true;
+    submit.textContent = 'Распознаём…';
+    progress.textContent = 'Фотография отправляется в сервис. Ожидаем результат…';
+    document.getElementById('result-card').setAttribute('aria-busy', 'true');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 120000);
+    try {
+      const response = await fetch(form.action, { method: 'POST', body: payload, signal: controller.signal });
+      const data = await response.json().catch(() => null);
+      if (!response.ok) {
+        const detail = data && data.detail;
+        const code = detail && detail.code;
+        throw new Error(errorMessages[code] || (detail && detail.message) || `Ошибка сервиса (${response.status}). Повторите попытку.`);
+      }
+      if (!data || typeof data.accepted !== 'boolean' || !data.predicted_poi_id) throw new Error('Сервис вернул неожиданный ответ. Повторите попытку.');
+      const accepted = data.accepted === true;
+      const decision = document.getElementById('decision');
+      decision.textContent = accepted ? 'POI подтверждён' : 'POI не подтверждён';
+      decision.className = `badge ${accepted ? 'accepted' : 'rejected'}`;
+      document.getElementById('poi-caption').textContent = accepted ? 'Подтверждённый объект' : 'Предположение модели';
+      document.getElementById('poi').textContent = accepted ? data.poi_id : data.predicted_poi_id;
+      document.getElementById('reason').textContent = reasonMessages[data.reason] || 'Подробности приведены в полном ответе сервиса.';
+      document.getElementById('score').textContent = Number(data.score).toFixed(3);
+      document.getElementById('margin').textContent = Number(data.margin).toFixed(3);
+      const candidates = document.getElementById('candidates');
+      candidates.replaceChildren();
+      for (const candidate of data.candidates || []) {
+        const item = document.createElement('li');
+        item.textContent = `${candidate.poi_id} · ${Number(candidate.score).toFixed(3)}`;
+        candidates.appendChild(item);
+      }
+      document.getElementById('json').textContent = JSON.stringify(data, null, 2);
+      document.getElementById('empty').hidden = true;
+      document.getElementById('result').hidden = false;
+      progress.textContent = 'Готово. Результат показан на странице.';
+    } catch (error) {
+      progress.textContent = '';
+      showError(error.name === 'AbortError' ? 'Сервис не ответил за две минуты. Повторите попытку.' : (error.message || 'Не удалось связаться с сервисом. Проверьте подключение.'));
+    } finally {
+      clearTimeout(timeout);
+      busy = false;
+      input.disabled = false; submit.disabled = !input.files[0]; reset.disabled = !input.files[0];
+      submit.textContent = 'Распознать POI';
+      document.getElementById('result-card').setAttribute('aria-busy', 'false');
+    }
+  });
+  window.addEventListener('pagehide', clearPreview);
+</script>
+</body>
+</html>

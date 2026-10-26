@@ -1,0 +1,8 @@
+image_id,suggested_poi_id,suggested_status,observation
+wm_d5439531da75549d,moscow/ostankinskiy/main_entrance,needs_review,На contact sheet видна арка главного входа; точная копия лежит в main_entrance; исходная папка central_pavilion
+wm_d7f673e466677653,moscow/tverskoy/bolshoi_theatre,needs_review,Панорама с доминирующим Большим театром в папке hotel_metropol; проверить присутствие целевого отеля и правило нескольких POI
+wm_2dbaaf21a6528fe4,moscow/ostankinskiy/ostankino_tower,rejected,Сравнительная диаграмма высот сооружений вместо фотографии POI; предлагаемая причина non_scene
+wm_9443b019aa169e26,moscow/ostankinskiy/ostankino_tower,rejected,Сравнительная диаграмма высот сооружений вместо фотографии POI; предлагаемая причина non_scene
+wm_b9af610d4a3d9da5,moscow/ostankinskiy/ostankino_tower,rejected,Сравнительная схема башен вместо фотографии POI; предлагаемая причина non_scene
+wm_0738ce9cba88831c,moscow/ostankinskiy/ostankino_tower,rejected,Сравнительная схема башен вместо фотографии POI; предлагаемая причина non_scene
+wm_82c87a657ba316bf,moscow/arbat/pashkov_house,needs_review,Нет типичного общего вида дома Пашкова; проверить в полном размере другой фасад или ошибочную метку

@@ -1,0 +1,22 @@
+{
+  "seed": 42,
+  "candidate_pois": 5,
+  "references_per_poi": 3,
+  "image_long_side": 960,
+  "sift_features": 1200,
+  "sift_contrast_threshold": 0.02,
+  "ratio_test": 0.72,
+  "minimum_matches": 8,
+  "minimum_inliers": 8,
+  "minimum_coverage": 0.02,
+  "ransac_reprojection_threshold": 4.0,
+  "ransac_max_iterations": 1500,
+  "score_aggregations": ["best", "mean_two"],
+  "score_fusions": ["geometry_only", "hybrid_ridge"],
+  "minimum_score_threshold": 0.01,
+  "target_known_wrong_far": 0.01,
+  "target_hard_wrong_far": 0.05,
+  "target_external_far": 0.01,
+  "score_grid_size": 81,
+  "margin_grid_size": 61
+}

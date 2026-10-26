@@ -1,0 +1,44 @@
+{
+  "total_images": 1283,
+  "audit_records": 1387,
+  "removed_or_unselected": 104,
+  "cities": 1,
+  "districts": [
+    "arbat",
+    "khamovniki",
+    "ostankinskiy",
+    "tverskoy"
+  ],
+  "poi_count": 23,
+  "readable": 1283,
+  "verified": 1283,
+  "needs_review": 0,
+  "uncertain": 0,
+  "rejected": 104,
+  "active_verified_after_cleaning": 1263,
+  "released_images": 1263,
+  "exact_duplicate_groups": 15,
+  "exact_duplicate_excess": 17,
+  "potential_duplicate_pairs": 3,
+  "commons_same_file_pairs": 0,
+  "all_duplicate_pairs": 22,
+  "cross_poi_duplicate_pairs": 5,
+  "exact_label_conflict_images": 7,
+  "raw_imbalance_max_min": 25.833333333333332,
+  "sources": {
+    "manual": 784,
+    "wikimedia_commons": 499
+  },
+  "formats": {
+    "JPEG": 1250,
+    "MPO": 29,
+    "PNG": 4
+  },
+  "split_counts": {
+    "train": 886,
+    "val": 191,
+    "test": 186
+  },
+  "training_ready": true,
+  "review_complete": false
+}
