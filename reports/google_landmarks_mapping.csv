@@ -1,0 +1,24 @@
+poi_id,category,landmark_ids,gld_categories,mapping_method,status
+moscow/arbat/arseny_morozov_house,Arseny Morozov House on Vozdvizhenka,136842,http://commons.wikimedia.org/wiki/Category:Arseny_Morozov_House_on_Vozdvizhenka,exact_category,matched
+moscow/arbat/pashkov_house,Pashkov house - exteriors,,,exact_category,not_found
+moscow/khamovniki/khrushchev_seleznev_house,Khrushev-Seleznevs' house,,,exact_category,not_found
+moscow/khamovniki/pushkin_museum,Exterior views of the Pushkin Museum,,,exact_category,not_found
+moscow/ostankinskiy/armenia,VDNKh Armenia Pavilion (No 68),,,exact_category,not_found
+moscow/ostankinskiy/central_pavilion,VDNKh Central pavilion (No 1),,,exact_category,not_found
+moscow/ostankinskiy/cosmos,VDNKh Space Pavilion (No 32-34),,,exact_category,not_found
+moscow/ostankinskiy/friendship_of_the_peoples,,,,exact_category,not_found
+moscow/ostankinskiy/kazakhstan_pavilion,,,,exact_category,not_found
+moscow/ostankinskiy/main_entrance,VDNKh Main Entrance Arch,,,exact_category,not_found
+moscow/ostankinskiy/moldova_pavilion,,,,exact_category,not_found
+moscow/ostankinskiy/moscow_sun,Moscow Sun,,,exact_category,not_found
+moscow/ostankinskiy/moskvarium,,,,exact_category,not_found
+moscow/ostankinskiy/ostankino_tower,Ostankino Tower,15231,http://commons.wikimedia.org/wiki/Category:Ostankino_Tower,exact_category,matched
+moscow/ostankinskiy/pavilion_5,,,,exact_category,not_found
+moscow/ostankinskiy/pavilion_71,,,,exact_category,not_found
+moscow/ostankinskiy/polymer_house,,,,exact_category,not_found
+moscow/ostankinskiy/robostation,,,,exact_category,not_found
+moscow/ostankinskiy/stone_flower,,,,exact_category,not_found
+moscow/tverskoy/bolshoi_theatre,Exterior of the Bolshoi Theatre,,,exact_category,not_found
+moscow/tverskoy/hotel_metropol,Hotel Metropol (Moscow),20427,http://commons.wikimedia.org/wiki/Category:Hotel_Metropol_(Moscow),exact_category,matched
+moscow/tverskoy/hotel_national,Hotel National (Moscow) - exterior,,,exact_category,not_found
+moscow/tverskoy/maly_theatre,Buildings of Maly Theatre,,,exact_category,not_found

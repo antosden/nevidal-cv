@@ -1,6 +1,0 @@
-{
-  "encoder": "dinov2_small",
-  "variant": "random_20",
-  "selection_split": "val_and_negative_val",
-  "test_used_for_selection": false
-}

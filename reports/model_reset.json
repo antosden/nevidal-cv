@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-28",
+  "models_remaining": 0,
+  "deleted_files": 9021.0,
+  "deleted_bytes": 1104157795.0,
+  "archive_entries_removed": 63,
+  "archive_data_entries_preserved": 435,
+  "notebooks_cleared": 12,
+  "outputs_removed": 1488,
+  "total_bytes_freed": 1387984658.0,
+  "dataset_and_sources_unchanged": true,
+  "pretrained_weights_removed": true,
+  "docker_cleanup": "not_performed_engine_access_denied"
+}

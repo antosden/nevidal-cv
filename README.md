@@ -1,174 +1,59 @@
-# «Невидаль»: сбор фотографий Wikimedia Commons
+# Невидаль — датасет и MobileNetV3-Small baseline
 
-## Docker-сервис распознавания POI
+## Текущее состояние
 
-Подготовлен HTTP-сервис на DINOv2-S с выбранной галереей и порогами отказа. Bundle уже находится в
-`models/poi_service_dinov2` и копируется в образ при сборке. Bind mounts с диска Windows не используются;
-исходные фотографии контейнеру не нужны.
+28 октября 2026 года предыдущие модели и результаты экспериментов удалены по запросу пользователя.
+29 октября 2026 года обучен новый supervised MobileNetV3-Small на manual и Wikimedia:
+884 train, 191 val, 185 test, 23 POI. Выбрана 14-я эпоха по val Macro-F1.
+После исправления одной подтверждённой test-метки: test Accuracy **84.32%**, Macro-F1 **82.51%**.
+External negative-test FPR — **0.35% (2/573)** при пороге max-softmax 0.955159.
+Строгий отказ подтверждает лишь 23/185 положительных снимков; для продукта этот режим требует доработки.
+Модель: `models/mobilenetv3_small_classifier/`; отчёт: `reports/mobilenetv3_small_classifier/summary.md`.
+Готового экспорта этой модели для сервиса или телефона пока нет.
 
-```powershell
-docker compose up --build -d
-curl.exe -X POST "http://localhost:8000/predict" -F "file=@C:/photos/photo.jpg"
-```
+Удалены выпуски MobileNetV3 и DINOv2, обученные и исходные скачанные веса, эмбеддинги,
+галереи, пороги, предсказания, отчёты моделей, промежуточные кэши и старые результаты в ноутбуках.
+Копии моделей очищены также из локального архива.
 
-Форма загрузки с предпросмотром и результатом на странице: http://localhost:8000/.
-Документация Swagger: http://localhost:8000/docs. `predicted_poi_id` — предположение; `poi_id` заполняется
-при `accepted=true`, иначе равен `null`. Score — cosine similarity. Модель экспериментальная: test true accept 46,77%,
-external FAR 1,05%. [Контракт, настройки и проверки](docs/poi_service.md).
+Сохранены исходные фотографии, source/author/licence, ручные решения, положительные и отрицательные
+выборки, подготовленные изображения, EDA, парсер, конфигурации и исходный код.
+Ноутбуки и скрипты прошлых экспериментов оставлены как шаблоны; их результаты нужно получать заново.
+Экспортированные исследовательские документы и резервная копия планировщика сохранены.
 
-В проекте находятся Wikimedia-парсер, EDA-пайплайн подготовки размеченного датасета и baseline верификации POI на frozen MobileNetV3. Веса модели не дообучаются. Анализ охватывает все найденные POI и районы; прежний архив и папка `ВДНХ/` в него не включаются.
+## Дальнейшая работа
 
-## Baseline: MobileNetV3 → эмбеддинги → галерея → отказ
+1. Проверить метки, неоднозначные кадры и негативы с целевыми POI.
+2. Обогатить данные разными ракурсами и отдельной пользовательской съёмкой.
+3. Зафиксировать новую версию данных и независимую оценку.
+4. Улучшить режим отказа нового baseline и подготовить экспорт для offline-режима.
+5. Основная метрика распознавания — Macro-F1; дополнительно Accuracy, FP/FPR и результаты по POI.
 
-Основной документ — `notebooks/02_poi_verification_baseline.ipynb`. Новый baseline использует **MobileNetV3-Small, IMAGENET1K_V1**, 576D avgpool-эмбеддинги с L2-нормализацией. Прежние classifiers, веса дообученных моделей и пороги из архива не используются. Сохранённый официальный ImageNet-checkpoint допускается повторно использовать после проверки полного SHA-256.
+Старый test использовался при разработке и остаётся диагностическим. Его сохранение не делает
+его новым независимым тестом. Исходные ImageNet-веса Small восстановлены локально и проверены по SHA-256.
 
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-baseline.txt
-.\.venv\Scripts\python.exe scripts/baseline_mobilenetv3.py run --download-weights
-.\.venv\Scripts\python.exe -m jupyterlab notebooks/02_poi_verification_baseline.ipynb
-```
+## Структура
 
-Скачивание исходных весов (~10 MB) нужно только один раз; `--download-weights` действует только при отсутствии файла. При доступных весах запуск полностью offline:
+- `data/raw/` — исходные фотографии и метаданные; сохранены без изменения.
+- `data/annotations/` — ручная разметка, фиксированные классы и CSV выборок.
+- `data/processed/` — подготовленный датасет.
+- `notebooks/01_dataset_eda.ipynb` — инвентаризация и ручная проверка.
+- `reports/` — отчёты качества данных, метрики нового baseline и проверки целостности.
+- `models/` — новый MobileNetV3-Small, снимки разметки и артефакты обучения.
+- `src/`, `scripts/`, `tests/`, `config/` — исходный код и конфигурации.
 
-```powershell
-.\.venv\Scripts\python.exe scripts/baseline_mobilenetv3.py run --weights-file .runtime/torch/checkpoints/mobilenet_v3_small-047dcff4.pth
-.\.venv\Scripts\python.exe scripts/execute_baseline_notebook.py
-```
+## Установка и EDA
 
-При известной ошибке pandas в `.venv` используйте рабочий Python с pandas и параметр `--extra-site .venv/Lib/site-packages` **перед** подкомандой `run`/`verify`. Параметр также есть у исполнителя ноутбука. Он не меняет данные или результаты модели. Фактические версии библиотек записываются в metadata.json; полный локальный snapshot пакетов — `reports/baseline_mobilenetv3/environment_freeze.txt`.
-
-Выпуск сохраняется в `models/baseline_mobilenetv3/`: исходные веса, train/val/test snapshots с атрибуцией, эмбеддинги и их индексы, `gallery.csv`, `gallery_embeddings.npy`, `rejection_policy.json`, `metadata.json`, результаты и таблицы ошибок. Скрипт не перезаписывает существующий выпуск: для нового запуска передайте `--output models/baseline_mobilenetv3_run2`. Ноутбук при повторном Run All проверяет хэши и читает зафиксированные результаты. При изменении данных/конфигурации нужен новый выпуск.
-
-Правила фиксируются в `config/baseline_mobilenetv3.json`, SEED=42. Галерея — до 20 разнообразных эталонов на POI из **train**, максимум один кадр split_group на POI. Проверяются пересечения ID, SHA-256, duplicate_group, split_group, series_id и Commons file ID. До обработки сверяется SHA-256 каждого используемого фото.
-
-Для зафиксированной CPU-среды используйте `requirements-baseline-lock.txt` (Python 3.12.14); общий файл зависимостей допускает совместимые версии. Независимая проверка сохранённого выпуска: `python scripts/check_baseline_reproducibility.py`. Она повторно строит галерею и val-пороги из сохранённых эмбеддингов, сверяет test-метрики и повторно извлекает эмбеддинги нескольких фото. Этот запуск не меняет пороги и не дообучает модель.
-
-`score(target)` — максимальная cosine similarity с эталонами цели. `margin` — отрыв от лучшего другого POI. Подтверждение требует прохождения обоих порогов и строго положительного margin; равенство лидеров даёт отказ. Cosine **не является вероятностью**. Пороги выбираются только на **val**: максимум true accept при эмпирическом known-wrong FAR ≤1% и hard-wrong FAR ≤5%. Known-wrong перебирает все чужие известные POI, hard-wrong берёт наиболее похожую неверную цель каждого фото. Пары одного фото зависимы; количество пар не равно числу независимых примеров. После этого test используется для оценки, без подбора параметров.
-
-Локальная проверка одной фотографии:
+Python 3.11+. Существующее окружение `.venv` сохранено.
 
 ```powershell
-.\.venv\Scripts\python.exe scripts/baseline_mobilenetv3.py verify --image path/to/photo.jpg --target-poi-id moscow/ostankinskiy/ostankino_tower
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m jupyterlab notebooks/01_dataset_eda.ipynb
 ```
 
-Результат содержит `accepted`, `reason`, `score`, `margin`, ближайший эталон с source/author/licence и версии галереи/порогов. Причины отказа: `poi_not_matched` (другая цель лидирует или ничья), `poi_below_threshold`, `poi_ambiguous`, `target_poi_not_supported`. Это локальный Python/CLI baseline; сервер или API не создаётся. Программный интерфейс — `src.poi_baseline.POIVerifier`.
+После фактической ручной проверки обновляйте решения в CSV и пересобирайте данные через ноутбук.
+Флаги подтверждения разметки не заменяют просмотр фотографий.
 
-Метрики и графики находятся в `reports/baseline_mobilenetv3/summary.md`; детальные пары/ошибки — в `models/baseline_mobilenetv3/test_pairs.csv`. **Внешних unknown-негативов пока нет:** отказ на произвольных объектах не проверен. Нужны отдельные проверенные unknown-val/unknown-test и полевой мобильный тест. Малые классы делают текущие оценки нестабильными. Для авторства и лицензии сохраняются исходные поля; manual — Shilkova A.M., Public Domain по подтверждению пользователя.
-
-## EDA и подготовка разметки
-
-### Полное обогащение manual и сравнение encoder
-
-В текущем выпуске учтены все 784 manual-фото, включая 288 ранее не использовавшихся. После очистки выпущены 1 263 изображения 23 POI: train=886, val=191, test=186. Семь кадров с противоречащими POI-метками исключены и находятся в `data/annotations/review_conflicts.csv`; contact sheet — `reports/figures/label_conflicts.jpg`.
-
-Проверены 21 validation-вариант галерей. Выбранный по validation DINOv2-S (`random_20`, 404 эталона) на диагностическом test дал accuracy 89,25%, macro-F1 89,22%, true accept 46,77%, external any-POI FAR 1,05% (6/573). У Small — true accept 34,95%, FAR 0,87%; у Large — 38,71%, FAR 2,44%. Цель 85% true accept не достигнута; FAR DINOv2 немного выше ограничения 1%, основная модель автоматически не заменена. Полная таблица — `reports/encoder_comparison/summary.md`.
-
-Текущая политика `config/dataset_sources.json`: `manual_selection=all`. В датасет включаются все доступные изображения из зарегистрированных папок manual, независимо от числа Wikimedia-фото. Автор manual — Shilkova A.M., licence — Public Domain по подтверждению пользователя. Неизменённые решения review_edits.csv сохраняются; нечитаемые, точные копии и конфликтующие кадры остаются в audit-таблицах, но исключаются из активных выборок.
-
-`data/annotations/split_anchors.csv` хранит прежние назначения train/val/test и SHA исходников. Новые независимые группы распределяются с SEED=42 к пропорциям 70/15/15. Группы, связывающие разные прежние splits, изолируются с причиной `cross_split_anchor_conflict`; потенциальные связи с фиксированными external negatives — `external_negative_overlap_candidate`. Это исключение из выпуска, а не автоматическое изменение подтверждённой POI-метки. Старые processed-копии могут оставаться на диске: актуальный состав определяется CSV, загрузчики не обходят папки через glob.
-
-Сравнение — `notebooks/07_encoder_gallery_comparison.ipynb`, настройки — `config/encoder_comparison.json`. Три frozen encoder: MobileNetV3-Small V1, MobileNetV3-Large V2, DINOv2 ViT-S/14 без register tokens. Для всех используются L2 embeddings, max cosine и глобальные score/margin пороги. Галереи: 5/10/20/all независимых train-групп на POI; diverse/farthest-first и случайный отбор с SEED=42. У каждого encoder документированный preprocessing до crop 224; DINOv2 использует CLS 384D. Обучение весов не выполняется.
-
-Официальные веса положите в `.runtime/torch/checkpoints/`:
-
-- [mobilenet_v3_large-5c1a4163.pth](https://download.pytorch.org/models/mobilenet_v3_large-5c1a4163.pth)
-- [dinov2_vits14_pretrain.pth](https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_pretrain.pth)
-
-Small уже доступен локально. При доступной сети можно скачать оба недостающих файла командой `python scripts/download_encoder_weights.py`; сравнение автоматически скачивание не запускает. Для DINOv2 реализована eval-only совместимая архитектура на стандартном PyTorch: официальный state_dict загружается strict=True, без случайного fallback. Полные SHA, preprocessing и версии сохраняются. Новые зависимости не требуются.
-
-```powershell
-python scripts/compare_encoders.py --only-encoder mobilenetv3_small
-python scripts/compare_encoders.py --only-encoder mobilenetv3_large --stage validation --reuse-input-audit
-python scripts/compare_encoders.py --only-encoder mobilenetv3_large --stage test --reuse-input-audit
-python scripts/compare_encoders.py --only-encoder dinov2_small --stage validation --reuse-input-audit
-python scripts/compare_encoders.py --only-encoder dinov2_small --stage test --reuse-input-audit
-python scripts/execute_baseline_notebook.py --notebook notebooks/07_encoder_gallery_comparison.ipynb
-python scripts/check_encoder_comparison.py
-```
-
-Используйте рабочий Python с pandas; команды поддерживают `--extra-site .venv/Lib/site-packages`. Можно запустить всё одной командой без фильтров; этапы выше удобнее для длительных CPU-запусков. Эмбеддинги сохраняются после каждого батча с идентификатором входных данных и весов; продолжение не повторяет готовые батчи. Готовые кэши проверяются по SHA. `--stage test` требует ранее зафиксированного validation-выбора.
-
-Первый запуск выполняет полный SHA-аудит входных фото. `--reuse-input-audit` допустим только с теми же CSV/config: для файлов с прежним размером и mtime не позже завершённого аудита используется его результат, остальные хэшируются заново. Это кэш по метаданным файловой системы, а не новая криптографическая проверка; для полной повторной проверки опустите флаг.
-
-Отсутствующие веса дают `missing_weights`, а не вымышленные метрики; после добавления весов повторите сравнение, завершённые encoder не пересчитываются. Результаты — `models/encoder_comparison_manual_all/` и `reports/encoder_comparison/summary.md`; дополнительная диагностика по источникам — `by_source.csv`. Новый состав данных или настройки требуют нового `--output` (пути OUTPUT/report в ноутбуке и проверяющем скрипте для такого выпуска следует изменить). Скрипт `refresh_encoder_comparison_metrics.py` пересобирает отчётные поля из фиксированных scores, сохраняя прежние отчёты в .runtime; численные метрики, выбор и пороги он не меняет.
-
-Выбор галереи/порогов и предпочтительного encoder выполняется по val/negative-val при эмпирическом FAR ≤1% на val. Test обрабатывается после фиксации выбора каждого encoder и служит диагностикой; пороги по нему не меняются. Прежние выпуски моделей относятся к прежним snapshots датасета, поэтому сравнивать влияние encoder следует внутри нового выпуска. Для окончательного подтверждения качества нужен новый закрытый полевой test. Автоматического переключения используемой модели нет.
-
-### Геометрическая проверка конкретного POI
-
-Проверенный результат этого эксперимента на test: accuracy **84,93%**, macro-F1 **84,70%**, true accept **30,82% (45/146)**, external any-POI FAR **1,05% (6/573)**. У прежнего строгого baseline true accept **25,34%**, FAR **0,87%**. Новый вариант не заменяет прежний: ограничение FAR ≤1% на test не выполнено; цель 85% true accept не достигнута. Выбран `best + hybrid_ridge` только по validation; test-пороги не подстраивались. Этот test уже использовался для диагностики предыдущих экспериментов, поэтому для окончательной оценки нужен новый закрытый полевой набор.
-
-`notebooks/06_mobilenetv3_geometric_verification.ipynb` проверяет локальные детали объекта. MobileNetV3-Small + обученный Ridge предлагает 5 POI; для каждого берутся 3 ближайших эталона из прежней **train-галереи**. SIFT на grayscale копии ≤960 px, FLANN ratio test 0.72 и RANSAC homography проверяют согласованность деталей. Для геометрической поддержки нужны ≥8 inliers и площадь convex hull ≥2% каждого кадра. Два query keypoint не голосуют за один ref keypoint. Исходные фото остаются неизменными.
-
-```powershell
-.\.venv\Scripts\python.exe scripts/geometric_poi.py
-.\.venv\Scripts\python.exe scripts/execute_baseline_notebook.py --notebook notebooks/06_mobilenetv3_geometric_verification.ipynb
-.\.venv\Scripts\python.exe scripts/check_geometric_model.py
-```
-
-Настройки — `config/mobilenetv3_geometric.json`; новые зависимости и скачивание весов не требуются. Исполнители поддерживают `--extra-site .venv/Lib/site-packages` для рабочего Python. Кэш с проверкой SHA-256 находится в `.runtime/geometric_features`. Подготовка локальных признаков больших Commons-оригиналов и сопоставление требуют нескольких минут CPU; последующие проверки используют кэш.
-
-Этапы можно запускать отдельно: `scripts/geometric_poi.py --stage validate` фиксирует выбор по positive-val/negative-val, затем `--stage finalize` впервые вычисляет geometric test. Незавершённый validate можно продолжить с той же конфигурацией; завершённая validation-выборка не пересчитывается автоматически. Если дополнительно сравниваете новые способы fusion, делайте это по validation, до test; функция `select_geometry_policy` читает только сохранённые validation matching. Завершённый выпуск не перезаписывается; для нового эксперимента нужен новый `--output`.
-
-Сравниваются четыре validation-варианта: максимум/среднее двух geometric scores × чистая геометрия/гибрид с Ridge. `geometry_only` не подтверждает без локальной поддержки (score floor 0.01). `hybrid_ridge` использует geometric score + непробабилистический Ridge-отклик; без локальных совпадений остаётся только строгий глобальный Ridge-fallback. Пороги score/margin общие для всех POI, с validation-ограничениями external any-POI FAR ≤1%, known hard-wrong FAR ≤5%. Test не участвует в выборе. Score не является вероятностью.
-
-Выпуск — `models/mobilenetv3_geometric/`: веса исходного encoder, Ridge-параметры, train-галерея, локальные дескрипторы эталонов, snapshots, `selection.json`, политика отказа, `*_matching.npz`, `*_evidence.csv` и метрики. Модель самодостаточна для вывода: исходные train-фото не нужны после загрузки дескрипторов. Автор, источник и лицензия каждого эталона сохранены в gallery.csv. Признаки и match-таблицы не загружаются во внешние сервисы.
-
-```powershell
-.\.venv\Scripts\python.exe scripts/baseline_mobilenetv3.py verify --artifacts models/mobilenetv3_geometric --image path/to/photo.jpg --target-poi-id moscow/ostankinskiy/ostankino_tower
-```
-
-CLI выбирает загрузчик по schema_version=4. Ответ дополнен geometry_version и verification_method (`geometry_supported` или `strict_ridge_fallback`). Seed зависит от train-эталона, а не ID query, поэтому имя файла не меняет результат. Исследовательская схема дороже MobileNet по времени и памяти; в metadata приводится только matching latency, без декодирования, SIFT и encoder. Для применения на целевом оборудовании нужен полный latency-тест. Homography не гарантирует совпадения разных сторон здания, скульптур и движущейся воды. Положительный test уже диагностический; финальное качество нужно подтвердить новым закрытым полевым набором. Старые модели сохранены; автоматического переключения версии нет. Результаты — `reports/mobilenetv3_geometric/summary.md`.
-
-### Улучшенный классификатор и экспериментальные per-POI пороги
-
-Итог сравнения — `notebooks/05_mobilenetv3_classifier_and_calibration.ipynb`. Лучший на validation вариант использует исходный **MobileNetV3-Small ImageNet encoder + сбалансированный Ridge(alpha=0.1)**. Веса CNN остаются замороженными. Обучаемый линейный слой строится только по положительным train-эмбеддингам. Это отдельный scorer: его регрессионный отклик не является cosine или вероятностью и может выходить за [0,1]. Галерея сохраняется для контрольного варианта и ближайшего эталона с атрибуцией; при scorer=Ridge решение принимает обученный слой.
-
-```powershell
-.\.venv\Scripts\python.exe scripts/improve_mobilenetv3.py
-.\.venv\Scripts\python.exe scripts/execute_baseline_notebook.py --notebook notebooks/05_mobilenetv3_classifier_and_calibration.ipynb
-.\.venv\Scripts\python.exe scripts/check_calibrated_model.py
-```
-
-Новый выпуск — `models/mobilenetv3_calibrated`; для повторного расчёта укажите новый `--output`. Общие зависимости те же; исполнители поддерживают `--extra-site`. Настройки — `config/mobilenetv3_calibrated.json`; варианты и выбор сохранены в `validation_candidates.csv` и `selection.json`. Проверены gallery cosine и Ridge alpha=0.01/0.1/1.0. Выбор по val true accept, затем macro-F1 и accuracy; test не меняет выбор.
-
-Per-POI score/margin пороги выбираются совместно по positive-val и negative-val. Динамическое программирование максимизирует число верных подтверждений при **общем** бюджете external false accepts и known-wrong accepts. Бюджет не сбрасывается для каждого класса. В `thresholds_by_poi.json` сохранены конкретные пороги. Калибровка по 1–2 положительным val-фото у малых классов может сильно переучитывать validation.
-
-**Измеренный результат test:** accuracy 84.93%, macro-F1 84.63%, true accept 45.89%, external any-POI FAR 5.06%. Классификация улучшилась относительно 74.66%/73.26%, но требование FAR ≤1% нарушено. Поэтому статус — `not_promoted_far_exceeded`: кандидат не рекомендован как замена прежней строгой политики. Цель 85% true accept не достигнута. Порогами по test это не исправляется; нужен более крупный независимый validation и новый закрытый полевой test.
-
-```powershell
-.\.venv\Scripts\python.exe scripts/baseline_mobilenetv3.py verify --artifacts models/mobilenetv3_calibrated --image path/to/photo.jpg --target-poi-id moscow/ostankinskiy/ostankino_tower
-```
-
-Отчёт — `reports/mobilenetv3_calibrated/summary.md`. Прежний строгий baseline доступен в `models/baseline_mobilenetv3_negatives`; CLI без `--artifacts` по-прежнему использует первоначальный `models/baseline_mobilenetv3`. Эксперименты не переключают используемую модель автоматически. Исходники и все положительные/отрицательные splits сохранены.
-
-### Дообучение MobileNetV3 для различения POI
-
-`notebooks/04_mobilenetv3_finetuning.ipynb` и `config/mobilenetv3_finetune.json` задают новый эксперимент. Обучаются последние четыре блока MobileNetV3-Small; BatchNorm заморожен. Веса обновляются **только по положительным train-фото**. Сбалансированные батчи 8 POI × 3 независимых снимка используют cosine classification и supervised contrastive loss. Negative-val участвует только в выборе checkpoint и порогов. Целевые ограничения FAR сохранены: known-wrong ≤1%, hard-wrong ≤5%, external any-POI ≤1% на validation.
-
-```powershell
-.\.venv\Scripts\python.exe scripts/finetune_mobilenetv3.py
-.\.venv\Scripts\python.exe scripts/execute_baseline_notebook.py --notebook notebooks/04_mobilenetv3_finetuning.ipynb
-.\.venv\Scripts\python.exe scripts/check_finetuned_model.py
-```
-
-При необходимости используйте рабочий Python с pandas и `--extra-site .venv/Lib/site-packages`. Новые зависимости или скачивание весов не нужны, если предыдущий baseline уже работает. Для точного повторения используйте зафиксированную CPU-среду `requirements-baseline-lock.txt`. Новый эксперимент с тем же seed и конфигурацией запускайте с `--output models/mobilenetv3_finetuned_run2`; имеющийся выпуск не перезаписывается. Ноутбук по умолчанию читает `models/mobilenetv3_finetuned` после проверки хэшей; для просмотра другого выпуска измените OUTPUT.
-
-Изображение сохраняется целиком: первый кадр MPO, EXIF orientation, JPEG draft 640, thumbnail до 320, поля до 224×224, ImageNet normalization. Общая процедура используется в обучении и одиночном выводе; это новая версия preprocessing. Кэш PNG с хэшами находится в `.runtime/finetune_cache/`, исходники не меняются. Train-аугментации: небольшое affine-преобразование, горизонтальное отражение, умеренное изменение цвета. Val/test обрабатываются детерминированно, без аугментаций.
-
-Checkpoint выбирается по максимальному val true accept при ограничениях FAR, затем по macro-F1 и accuracy. Каждая эпоха строит новую галерею из train и калибрует отказ только на positive-val/negative-val. Epoch 0 фиксирует контроль frozen encoder с новым preprocessing. Test-фото впервые декодируются этим экспериментом **после** сохранения выбранной эпохи и порогов; их оценка не меняет выбор. Это прежний диагностический положительный test, поэтому окончательное подтверждение качества требует нового закрытого полевого набора. Достижение 85% не гарантируется.
-
-На validation также сравниваются три преобразования метрики: identity, вычитание train-среднего и PCA-whitening до 128D с регуляризацией 5% от максимального собственного значения covariance. Все параметры fit вычисляются **только по positive-train**; val выбирает вариант, а test его не меняет. Матрица и среднее сохраняются в `embedding_transform.npz` и применяются загрузчиком при каждом запросе. Число проверенных вариантов увеличивает оптимизм val-оценки; окончательный отчёт отдельно показывает отложенные результаты. Первый пробный запуск без преобразования метрики сохранён в `_archive/finetune_pilot_without_centering_20261026`; он остановлен до расчёта test-метрик и не является готовым выпуском.
-
-Артефакты: `models/mobilenetv3_finetuned/encoder.pt`, `best_checkpoint.pt`, `training_history.csv`, `selection.json`, `gallery.csv`, `rejection_policy.json`, snapshots splits и эмбеддинги с атрибуцией. `metadata.json` публикуется после завершения расчётов и содержит хэши, версии библиотек и входных CSV. Отчёт и кривые — `reports/mobilenetv3_finetuned/`.
-
-```powershell
-.\.venv\Scripts\python.exe scripts/baseline_mobilenetv3.py verify --artifacts models/mobilenetv3_finetuned --image path/to/photo.jpg --target-poi-id moscow/ostankinskiy/ostankino_tower
-```
-
-CLI выбирает загрузчик по схеме артефактов; дообученный encoder не подменяется исходными ImageNet-весами. Предыдущие модели сохранены, автоматического переключения используемой версии нет.
-
-Основной документ — [notebooks/01_dataset_eda.ipynb](notebooks/01_dataset_eda.ipynb). Число POI определяется из источников; охватываются районы `arbat`, `khamovniki`, `ostankinskiy`, `tverskoy`. Список вычисляется из CSV и папок, ограничений на прежние шесть объектов нет.
+## EDA и работа с разметкой
 
 ### Обновление после ручной очистки и дополнение manual
 
@@ -236,58 +121,23 @@ CLI выбирает загрузчик по схеме артефактов; д
 
 Для теста отказа на посторонних объектах нужен отдельный проверенный набор негативов; ошибочные фотографии целевых POI не превращаются в unknown. Правила нескольких POI, перекрытий, интерьеров и коллажей приведены в ноутбуке. Авторские/лицензионные сведения сохраняются, условия каждого файла и атрибуция должны учитываться при дальнейшем использовании.
 
-## Структура
 
-- `scripts/wikimedia_parser.py` — загрузка фотографий и сохранение прогресса.
-- `config/wikimedia_pois.csv` — города, районы, POI, категории Commons и статусы.
-- `data/raw/wikimedia/<city>/<district>/<poi>/` — загруженные фотографии.
-- `data/raw/wikimedia/metadata.csv` — URL, авторы, лицензии и принадлежность файлов.
-- `tests/test_wikimedia_parser.py` — проверки без сетевых запросов.
-- `ВДНХ/` — сохранённые исходники прежнего сбора; автоматически в новый набор не включаются.
-- `_archive/` — резервные копии прежних CV-разработок, не участвующие в текущем процессе.
+## Подготовка негативных примеров
 
-## Установка и запуск
+Сохранены `negative_manifest.csv`, `negative_review_edits.csv`, `negative_val.csv`,
+`negative_test.csv` и `reports/negatives/`. Отрицательные POI не входят в mapping целевых классов.
+Если на фотографии виден целевой объект, её нельзя автоматически считать чистым негативом.
 
-Python 3.11+. PowerShell из корня проекта:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m pip install -r requirements-test.txt
-.\.venv\Scripts\python.exe scripts/wikimedia_parser.py
-```
-
-На Linux используйте `.venv/bin/python`. Существующее локальное окружение можно продолжать использовать.
-
-## Настройка POI
-
-### Проверенные negatives и новый выпуск отказа
-
-После подтверждённого просмотра оставшихся файлов `data/raw/wikimedia_negatives`:
+После подтверждённой ручной проверки можно запустить подготовку:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/prepare_negative_dataset.py --confirm-reviewed
-.\.venv\Scripts\python.exe scripts/calibrate_negative_baseline.py
-.\.venv\Scripts\python.exe scripts/execute_baseline_notebook.py --notebook notebooks/03_negative_dataset_and_rejection.ipynb
 ```
 
-Флаг `--confirm-reviewed` фиксирует явное подтверждение пользователя; без проверки его передавать нельзя. Новый аудит уже выполненного выпуска не перезаписывается: повторный просмотр результатов доступен в `notebooks/03_negative_dataset_and_rejection.ipynb`. Все три исполнителя поддерживают `--extra-site .venv/Lib/site-packages` для рабочего Python с pandas, если основная `.venv` всё ещё содержит повреждённый pandas.
+При новом сборе используйте отдельный каталог: повторный обход старой категории может восстановить
+ранее удалённые изображения из метаданных.
 
-Артефакты подготовки: `data/annotations/negative_manifest.csv`, `negative_review_edits.csv`, `negative_review_queue.csv`, `negative_duplicate_pairs.csv`, `negative_val.csv`, `negative_test.csv`; сводка — `reports/negatives/dataset_summary.json`. В manifest остаются удалённые строки metadata как rejected / removed_by_user. Атрибуция source/author/licence, исходные авторские сведения и URL сохранены. `source_poi_id` обозначает посторонний объект; `poi_id` остаётся пустым — negatives не добавляются в mapping целевых классов.
-
-После ручной очистки не запускайте сбор повторно в очищенный каталог: текущий парсер умеет восстанавливать отсутствующие файлы из metadata и может вернуть удалённые кадры. Для нового сбора используйте отдельный каталог/выпуск. Готовые CSV и source_snapshot.json фиксируют проверенный состав. Проверка выпуска: `python scripts/check_negative_baseline.py` (при необходимости с `--extra-site`).
-
-SHA-256, Commons-ID, pHash и кропы сопоставляются также с существующими положительными фото. Консервативные пересечения получают `needs_review` / `positive_overlap_candidate` и исключаются; это технические кандидаты, а не автоматическое опровержение ручной проверки. Точные копии negatives сохраняются в аудите, но активен один экземпляр. Negative val/test делятся примерно 50/50 **по целым source POI и связанным группам копий**, SEED=42. Положительные CSV не меняются. Редкий тип с единственным посторонним POI не может присутствовать в обоих splits при таком разделении.
-
-`negative_review_edits.csv` сохраняет принятые на момент выпуска решения для аудита. Текущий исполнитель **не применяет правки к этой таблице и не пересобирает существующий выпуск**. Если нужно вернуть исключённый кандидат, сначала проверьте его связь с положительным набором и выпускайте новую версию manifests/splits с явным пересмотром ограничений; простое изменение CSV не меняет готовые выборки.
-
-Новая политика — `models/baseline_mobilenetv3_negatives/`. Веса, положительные эмбеддинги и train-галерея переиспользуются после проверки хэшей; сами negative-фото в галерею не добавляются. Пороговые ограничения из `config/baseline_mobilenetv3_negatives.json`: known-wrong FAR ≤1%, hard-wrong FAR ≤5%, **external any-POI FAR ≤1%** на validation. Настройка использует только positive-val и negative-val; оба test оцениваются после фиксации политики. Это эмпирические ограничения validation, не гарантия частоты ошибок новых фотографий. True accept может снизиться: настройка отказа не улучшает сами эмбеддинги.
-
-```powershell
-.\.venv\Scripts\python.exe scripts/baseline_mobilenetv3.py verify --artifacts models/baseline_mobilenetv3_negatives --image path/to/photo.jpg --target-poi-id moscow/ostankinskiy/ostankino_tower
-```
-
-Прежний baseline остаётся в `models/baseline_mobilenetv3`; без `--artifacts` CLI использует его. Итог нового выпуска — `reports/baseline_mobilenetv3_negatives/summary.md`; предсказания каждого negative-test фото и его атрибуция — `models/baseline_mobilenetv3_negatives/negative_test_predictions.csv`. Этот negative-набор покрывает прежде всего достопримечательности Commons, а не все условия мобильной съёмки.
+## Wikimedia Commons
 
 ### Сбор похожих посторонних POI для проверки отказа
 
@@ -357,8 +207,214 @@ moscow,ostankinskiy,main_entrance,VDNKh Main Entrance Arch,pending,0,,
 
 Тесты используют временные папки и имитируют загрузку, ошибки и продолжение работы. Реальные фотографии при тестировании не скачиваются.
 
-## Архив прежней работы
 
-Старый CV-контур вынесен из рабочих каталогов в `_archive/legacy_cv_2026-10-26_6b6427dc_files/`. Дополнительно сохранён ZIP `_archive/legacy_cv_2026-10-26_6b6427dc.zip`, проверенный по SHA-256. В архиве находятся прежние модели, веса, код, API, ноутбуки, отчёты, разметка и подготовленные выборки. Исходные README и зависимости сохранены в ZIP. Для восстановления используйте отдельную папку.
+## Сервис и Docker после сброса
 
-Wikimedia-фотографии, метаданные, конфигурация со статусами и исходники в `ВДНХ/` сохранены. Прежние файлы не подключаются к новому сбору автоматически.
+Исходный код `service/`, Dockerfile и Compose сохранены, но прежний
+`models/poi_service_dinov2` удалён. Для новой сборки сначала нужен новый экспортированный bundle.
+Старый образ может содержать отдельную копию прежней модели и продолжать работать независимо от файлов проекта.
+
+Доступ к Docker Engine из среды очистки отсутствовал. Чтобы удалить контейнер и образ только этого проекта:
+
+```powershell
+docker compose down
+docker image rm nevidal-poi:local
+```
+
+Команда не выполнялась автоматически. Не используйте глобальный Docker prune для очистки других проектов.
+
+## Соответствие POI и объектов 2GIS
+
+`config/poi_2gis_mapping.json` связывает неизменные классы модели с ID карты.
+Перенесены 22 связи и один заблокированный кандидат арки: в источнике его ID
+отнесён ко всему парку ВДНХ. Проверка через SDK остаётся ожидающей.
+ID хранятся строками; менять индексы модели и переобучать её не нужно.
+Python-адаптер: `src/poi_catalog.py`, Flutter/Dart: `integration/flutter/poi_catalog.dart`.
+По умолчанию неподтверждённые SDK-связи не разрешаются; явный тестовый флаг описан
+в `docs/poi_2gis_mapping.md`. Для production сначала нужна проверка каждой связи в SDK.
+Flutter-проект и текущий HTTP-сервис автоматически не изменены.
+Проверка: `python scripts/check_poi_2gis_mapping.py`.
+
+## Новый supervised baseline MobileNetV3-Small
+
+Код: `src/small_classifier.py`, запуск: `scripts/train_small_classifier.py`,
+настройки: `config/mobilenetv3_small_classifier.json`.
+Просмотр результатов: `notebooks/08_mobilenetv3_small_classifier.ipynb`.
+Для этого запуска pandas не требуется: в текущей Windows-среде обнаружена ошибка его DLL.
+
+```powershell
+.\.venv\Scripts\python.exe scripts/train_small_classifier.py
+```
+
+Нужны исходные ImageNet V1 веса в
+`.runtime/torch/checkpoints/mobilenet_v3_small-047dcff4.pth`.
+Официальная ссылка: https://download.pytorch.org/models/mobilenet_v3_small-047dcff4.pth.
+SHA-256 проверяется перед запуском; замены на случайные веса нет.
+
+Используются проверенные manual и Wikimedia из существующих train/val/test.
+Подготовка создаёт отдельный снимок CSV в каталоге эксперимента, не меняя общую разметку.
+Удалённые raw-файлы исключаются даже при наличии старых processed-копий.
+Точное перемещение manual-фотографии определяется по SHA-256, её POI берётся из
+новой папки согласно manual_pois.csv, исходная выборка сохраняется.
+Все изменения записываются в data_changes.csv/data_exclusions.csv.
+Неизвестные изменения содержимого блокируют запуск до повторной проверки.
+Проверенные правки существующих кадров фиксируются в
+`config/small_classifier_content_reviews.csv` с точным новым SHA-256, POI и результатом
+визуальной проверки. Для них в снимке обновляются размеры и pHash, проверяются новые
+сходства между выборками; исходная выборка сохраняется. Журнал — content_reviews.csv.
+Подтверждённые исправления POI без изменения изображения задаются отдельно в
+`config/small_classifier_label_reviews.csv` с привязкой к SHA-256. В этом запуске
+исправлен один test-кадр арки, ошибочно помеченный как Cosmos, после фиксации
+модели и порога. Прежняя test-разметка и метрики сохранены в `models/.../source/`;
+контрольные параметры не подбирались повторно. Общие CSV в data/annotations не изменялись.
+
+SEED=42, CPU, первые две эпохи обучается классификатор; далее дообучаются последние
+четыре блока encoder с замороженными BatchNorm. Используются мягкие train-аугментации,
+взвешенная CrossEntropy и early stopping. Эпоха выбирается по **val Macro-F1**, затем
+Accuracy; negative/test не используются при выборе эпохи и в градиентах.
+
+- Accuracy и Macro-F1 считаются до отказа на всех positive-val/test.
+- В per_poi.csv FP — число фотографий других известных POI, ошибочно отнесённых к данному классу.
+- External FPR — доля внешних negatives, принятых за любой известный POI.
+  Порог max-softmax определяется на negative_val с целевым FPR ≤1%; на negative_test
+  это ограничение не гарантируется. При одинаковых score порог выбирается консервативно.
+- Дополнительно выводится доля верных принятий positive-изображений: низкий FPR
+  сам по себе не означает полезного распознавания.
+
+Результаты — `models/mobilenetv3_small_classifier/`, отчёт —
+`reports/mobilenetv3_small_classifier/summary.md`. Веса сохраняются в model.pt,
+mapping и preprocessing описаны рядом в metadata.json. Новый эксперимент требует
+нового `--output`; незавершённый запуск с checkpoint автоматически не возобновляется.
+Для проверки данных без обучения используйте `--prepare-only --output <новая папка>`.
+Если обучение и калибровка уже завершены, но оценка прервалась, её можно продолжить
+без повторного обучения и изменения порога:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/train_small_classifier.py --evaluate-only
+```
+
+Для ускорения подготовки кэша есть `scripts/warm_small_classifier_cache.py --split <выборка>`.
+Запускайте его **только при остановленном основном процессе**, затем дождитесь окончания:
+на Windows одновременная запись/чтение одного файла может вызвать PermissionError.
+Для этого эксперимента оригинальная версия кода обучения сохранена в `models/.../source/`,
+причина возобновления оценки и хэши неизменённых checkpoint/policy — в evaluation_resume.json.
+После завершения проверьте SHA-256 и независимо пересчитайте метрики:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/check_small_classifier.py
+```
+
+Старый test является диагностическим; для итогового утверждения качества нужен новый
+закрытый полевой test. Видимые целевые POI на negatives необходимо исключать из
+негативной разметки после проверки, а не считать их принятие ошибкой модели.
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest tests.test_small_classifier -v
+```
+
+## Загрузка наших POI из Google Landmarks v2
+
+Скрипт `scripts/google_landmarks_parser.py` использует отдельный конфиг
+`config/google_landmarks_pois.csv`. В него внесены все 23 POI из текущего
+`data/annotations/poi_catalog.csv`, включая объекты, собранные только вручную.
+Прогресс Wikimedia-парсера и исходные фотографии он не меняет.
+
+Сначала проверьте соответствия без загрузки фотографий:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/google_landmarks_parser.py --plan-only
+```
+
+Будет скачан только `train_label_to_category.csv` из официальных метаданных GLDv2.
+Результат — `reports/google_landmarks_mapping.csv`: найденные `landmark_ids`,
+исходные категории и `matched`/`not_found`. Используется точное соответствие
+Commons-категорий с нормализацией пробелов, подчёркиваний и URL-кодирования.
+Поиск по похожему названию, родительским категориям и перенаправлениям не выполняется:
+он может ошибочно объединить разные здания.
+
+Если совпадения нет, проверьте таблицу категорий в
+`.runtime/google_landmarks_v2/metadata/train_label_to_category.csv`.
+В конфиге можно заменить `category` на подтверждённую категорию GLDv2 или указать
+`landmark_ids` (один или несколько train-ID через пробел). Явные ID имеют приоритет;
+неизвестные ID и назначение одного класса нескольким нашим POI считаются ошибкой.
+Пустая категория без ID остаётся `not_found`. Для девяти POI без категории в текущем
+каталоге поле намеренно оставлено пустым: соответствия не выдуманы.
+ID относятся только к GLDv2 **train**, не к index/test.
+
+После проверки соответствий:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/google_landmarks_parser.py --max-per-poi 50
+```
+
+Используется очищенный список `train_clean.csv`. Скрипт последовательно читает
+`train.csv` и `train_attribution.csv`, удерживая в памяти записи только выбранных POI.
+Метаданные кэшируются в `.runtime/google_landmarks_v2/metadata/`; эти таблицы могут
+занимать существенный объём. Полные TAR-архивы фотографий не загружаются: скачиваются
+только выбранные изображения по исходным URL. Часть старых ссылок может не работать;
+полученные файлы могут отличаться от архивных копий GLDv2. Это выборочная выгрузка
+по метаданным, а не побайтовая реплика официального benchmark.
+
+Результаты:
+
+- `data/raw/google_landmarks_v2/<city>/<district>/<poi>/<gld_image_id>.jpg`;
+- `data/raw/google_landmarks_v2/metadata.csv` — source=`google_landmarks_v2`, author,
+  licence, исходный URL, URL атрибуции, GLD-ID, категория, способ сопоставления,
+  размеры и SHA-256; `file`/`file_path` заданы относительно этого корня выгрузки;
+- `data/raw/google_landmarks_v2/download_errors.csv` — неустранённые ошибки файлов;
+- в конфиге — status, downloaded_count, last_error и progress_key.
+
+Авторы и лицензии сохраняются из `train_attribution.csv`, без назначения Public Domain
+по умолчанию. Если поле пустое — `unknown`; если записи атрибуции вообще нет,
+фотография откладывается с ошибкой. Исходные строки атрибуции сохраняются без
+переписывания. Условия использования проверяются по конкретным изображениям.
+
+Повторите команду после сбоя: файлы с метаданными и совпадающим SHA-256 пропускаются;
+отсутствующие или изменившиеся скачиваются заново. Прогресс и metadata сохраняются
+атомарно после каждого успешного изображения. Не запускайте одновременно два
+экземпляра с одним конфигом/выходным каталогом. Уменьшение лимита не удаляет ранее
+скачанные файлы. `done` означает достижение лимита либо исчерпание доступных записей
+очищенного поднабора; `done` с нулём не означает отсутствие POI во всём GLDv2.
+`not_found` означает отсутствие настроенного соответствия, `error` — необходимость
+повторной попытки; при ошибках файлов команда завершается с кодом 1.
+
+Для заранее скачанных CSV используйте `--metadata-dir <папка> --offline`.
+При обрыве загрузки метаданных выполняется до пяти попыток, таймаут чтения —
+180 секунд. Каждые несколько секунд поступления данных выводится объём загрузки.
+Остаток сохраняется в `.csv.part` с HTTP-валидатором в `.csv.part.json` и переживает
+повторный запуск. Докачка через Range применяется только при подтверждении версии
+ресурса и правильном Content-Range. Если сервер игнорирует Range или файл изменился,
+загрузка начинается заново. Готовое имя CSV появляется только после полного ответа;
+при исчерпании попыток выводится понятное сообщение без traceback.
+`--offline` запрещает скачивание **метаданных**; для фотографий всё ещё нужна сеть.
+`--output`, `--config`, `--report` позволяют задать другие пути. Новых библиотек
+не требуется: используются requests и Pillow из requirements.txt.
+
+Все новые фото получают `label_status=needs_review`. Они не добавляются автоматически
+в существующие train/val/test. Перед включением необходимы визуальная проверка и
+поиск дубликатов с текущими Wikimedia/manual, особенно с val/test.
+
+Контракт метаданных: [официальный репозиторий GLDv2](https://github.com/cvdfoundation/google-landmark#download-train-set).
+Проверка скрипта без сети:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest tests.test_google_landmarks_parser -v
+```
+
+## Мобильный выпуск MobileNetV3-Small
+
+Экспорт FP32/INT8, проверки качества, контракт Flutter и инструкция для хостинга:
+[docs/mobile_model_release.md](docs/mobile_model_release.md).
+Используется отдельный Linux Docker-контейнер; рабочая Windows `.venv` не меняется.
+Фото и подготовленные входы остаются локально. До успешной конвертации и проверки
+на телефоне пакет не считается готовым к включению в приложение.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_mobile_export.ps1
+```
+
+## Архив
+
+В `_archive/` сохранена история данных и исходного кода. Из распакованного legacy-архива и его ZIP
+удалены старые модели, веса и результаты моделирования; выводы notebook очищены.
+Архив обновлён, поэтому прежние контрольные суммы ZIP больше не применимы.

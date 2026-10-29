@@ -1,0 +1,36 @@
+{
+  "val": {
+    "accuracy": 0.8167539267015707,
+    "macro_f1": 0.7914910210962843,
+    "images": 191,
+    "wrong_predictions": 35,
+    "false_positive_count": 35,
+    "macro_one_vs_rest_fpr": 0.008443905107564799,
+    "accepted_images": 26,
+    "correct_accept_rate": 0.13089005235602094,
+    "wrong_accept_count": 1
+  },
+  "test": {
+    "accuracy": 0.8432432432432433,
+    "macro_f1": 0.8250630408239104,
+    "images": 185,
+    "wrong_predictions": 29,
+    "false_positive_count": 29,
+    "macro_one_vs_rest_fpr": 0.007284755418412171,
+    "accepted_images": 23,
+    "correct_accept_rate": 0.12432432432432433,
+    "wrong_accept_count": 0
+  },
+  "negative_val": {
+    "images": 573,
+    "false_positives": 5,
+    "false_positive_rate": 0.008726003490401396,
+    "definition": "any_known_POI_accepted_on_external_negative"
+  },
+  "negative_test": {
+    "images": 573,
+    "false_positives": 2,
+    "false_positive_rate": 0.0034904013961605585,
+    "definition": "any_known_POI_accepted_on_external_negative"
+  }
+}

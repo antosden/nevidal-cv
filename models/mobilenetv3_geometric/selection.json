@@ -1,6 +1,0 @@
-{
-  "aggregation": "best",
-  "score_fusion": "hybrid_ridge",
-  "selection_split": "val_and_negative_val",
-  "test_used_for_selection": false
-}

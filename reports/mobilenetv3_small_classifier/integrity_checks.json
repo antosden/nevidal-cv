@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "artifact_hashes": 35,
+  "checks": [
+    "artifact_sha256",
+    "group_leakage",
+    "verified_labels",
+    "epoch_selection",
+    "prediction_alignment",
+    "source_author_licence",
+    "accuracy_recomputed",
+    "macro_f1_recomputed",
+    "external_fpr_recomputed"
+  ]
+}

@@ -1,15 +1,16 @@
-# POI recognition: Docker-микросервис
+# POI recognition — код сервиса после сброса моделей
 
-Сервис принимает одну фотографию и возвращает предполагаемый POI и решение об отказе.
-Модель по умолчанию — DINOv2-S с выбранной на validation галереей `random_20` (404 эталона).
-Encoder и preprocessing общие с экспериментом: веса не дообучаются, пороги не меняются.
+28 октября 2026 года прежний bundle и результаты моделей удалены.
+Исходный код принимает фотографию и возвращает POI, но для запуска необходим новый выпуск модели.
+Имя `models/poi_service_dinov2` пока остаётся техническим путём в шаблоне Dockerfile,
+а не обозначением выбранной текущей модели.
 
 ## Запуск
 
 Из корня репозитория:
 
 ```powershell
-# Bundle уже подготовлен в models/poi_service_dinov2.
+# Сначала подготовьте новый bundle: прежний models/poi_service_dinov2 удалён.
 docker compose up --build -d
 docker compose ps
 docker compose logs -f poi-api
@@ -115,12 +116,10 @@ python -m uvicorn service.app:app --host 127.0.0.1 --port 8000 --workers 1
 `--extra-site .venv/Lib/site-packages`. Полный результат smoke — `reports/poi_service/smoke_checks.json`:
 положительный и отрицательный HTTP-запросы сопоставляются с сохранёнными scores эксперимента.
 
-## Измеренное качество
+## Качество нового выпуска
 
-Для текущего DINOv2-S на диагностическом test: accuracy 89,25%, macro-F1 89,22%, true accept 46,77%,
-external any-POI FAR 1,05% (6/573). Цель 85% true accept не достигнута, FAR немного выше целевого 1%.
-Сервис предоставляет этот экспериментальный вариант; export не меняет пороги и не повышает его статус до production.
-Текущий test уже использовался для диагностики; окончательная оценка требует отдельного закрытого полевого набора.
+Результаты предыдущих моделей удалены. После нового обучения и экспорта требуется заново
+измерить качество и проверить совпадение подготовки изображений и предсказаний в Python и сервисе.
 
 Реализация загрузки и контейнера следует [FastAPI UploadFile](https://fastapi.tiangolo.com/tutorial/request-files/),
 [FastAPI Docker](https://fastapi.tiangolo.com/deployment/docker/) и [Docker Compose services](https://docs.docker.com/reference/compose-file/services/).

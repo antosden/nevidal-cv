@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "selected_epoch": 14,
+  "checkpoint_equals_exported_model": true,
+  "changed_backbone_tensors": 22,
+  "reload_max_abs_score_difference": 5.960464477539063e-08,
+  "parameters": 1541431,
+  "model_bytes": 6295639
+}

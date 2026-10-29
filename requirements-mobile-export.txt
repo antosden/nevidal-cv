@@ -1,0 +1,6 @@
+# Отдельная Linux-среда. Не устанавливать в рабочую Windows .venv.
+# Полный разрешённый набор фиксируется в environment.json и pip-freeze.txt после сборки.
+litert-torch==0.10.0
+ai-edge-quantizer==0.10.0
+numpy==2.5.4
+Pillow==12.3.0

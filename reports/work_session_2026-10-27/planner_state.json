@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "extension": true,
+  "asOf": null,
+  "values": {
+    "audit": {
+      "hours": 2,
+      "done": true
+    },
+    "split": {
+      "hours": 2.5,
+      "done": true
+    },
+    "eda": {
+      "hours": 1.5,
+      "done": true
+    },
+    "baseline": {
+      "hours": 3,
+      "done": true
+    },
+    "aug": {
+      "hours": 1,
+      "done": true
+    },
+    "train": {
+      "hours": 3,
+      "done": true
+    },
+    "eval": {
+      "hours": 2.5,
+      "done": true
+    },
+    "bundle": {
+      "hours": 1.5,
+      "done": true
+    },
+    "api": {
+      "hours": 5,
+      "done": false
+    },
+    "live": {
+      "hours": 2,
+      "done": false
+    },
+    "e2e": {
+      "hours": 4,
+      "done": false
+    },
+    "release": {
+      "hours": 1.5,
+      "done": false
+    },
+    "expand": {
+      "hours": 5,
+      "done": true
+    },
+    "retrain": {
+      "hours": 6,
+      "done": false
+    },
+    "reval": {
+      "hours": 3,
+      "done": false
+    },
+    "republish": {
+      "hours": 1,
+      "done": false
+    }
+  },
+  "capacity": {
+    "2026-10-25": 2,
+    "2026-10-26": 7,
+    "2026-10-27": 7,
+    "2026-10-28": 7,
+    "2026-10-29": 7,
+    "2026-10-30": 5,
+    "2026-10-31": 0
+  },
+  "exportedAt": "2026-10-26T22:47:37.368Z"
+}
