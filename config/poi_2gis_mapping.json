@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "mapping_version": "poi-2gis-2026-10-30-v1",
+  "source_page": "https://chatgpt.com/space/page_d2a79c98b5808191afb3c23ef38f37bd",
+  "source_page_table_hash": "95d3168caf82b23f15952e0697fd96a0e03ef8a68e176980dbffffc0fd519997",
+  "model_mapping_path": "models/mobilenetv3_small_classifier/class_mapping.json",
+  "sdk_validation_status": "pending",
+  "entries": [
+    {
+      "class_index": 0,
+      "name": "Особняк Арсения Морозова",
+      "cv_poi_id": "moscow/arbat/arseny_morozov_house",
+      "dgis_poi_id": "4504235282750245",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282750245",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": [
+        "Сверить фасад из CV-датасета: в описании карточки упоминается привратницкая."
+      ]
+    },
+    {
+      "class_index": 1,
+      "name": "Дом Пашкова",
+      "cv_poi_id": "moscow/arbat/pashkov_house",
+      "dgis_poi_id": "70000001054455059",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/firm/70000001054455059",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 2,
+      "name": "Усадьба Хрущёвых — Селезнёвых",
+      "cv_poi_id": "moscow/khamovniki/khrushchev_seleznev_house",
+      "dgis_poi_id": "4504235282750821",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282750821",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 3,
+      "name": "ГМИИ имени А. С. Пушкина",
+      "cv_poi_id": "moscow/khamovniki/pushkin_museum",
+      "dgis_poi_id": "4504127908417781",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/firm/4504127908417781",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 4,
+      "name": "Павильон «Армения»",
+      "cv_poi_id": "moscow/ostankinskiy/armenia",
+      "dgis_poi_id": "4504235282637213",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282637213",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 5,
+      "name": "Центральный павильон",
+      "cv_poi_id": "moscow/ostankinskiy/central_pavilion",
+      "dgis_poi_id": "4504235282636987",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282636987",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 6,
+      "name": "Павильон «Космос»",
+      "cv_poi_id": "moscow/ostankinskiy/cosmos",
+      "dgis_poi_id": "4504235290760868",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235290760868",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": [
+        "Используется ID здания, не музея внутри."
+      ]
+    },
+    {
+      "class_index": 7,
+      "name": "Арка главного входа ВДНХ",
+      "cv_poi_id": "moscow/ostankinskiy/main_entrance",
+      "dgis_poi_id": null,
+      "candidate_dgis_poi_id": "4504127908473840",
+      "source_url": null,
+      "binding_status": "scope_mismatch",
+      "sdk_validation_status": "pending",
+      "review_notes": [
+        "В примечании исходной страницы ID отнесён ко всему парку ВДНХ, а не отдельной арке. Нужен ID сооружения."
+      ]
+    },
+    {
+      "class_index": 8,
+      "name": "«Солнце Москвы»",
+      "cv_poi_id": "moscow/ostankinskiy/moscow_sun",
+      "dgis_poi_id": "70000001052410383",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/firm/70000001052410383",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 9,
+      "name": "Останкинская телебашня",
+      "cv_poi_id": "moscow/ostankinskiy/ostankino_tower",
+      "dgis_poi_id": "4504235282680117",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282680117",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": [
+        "Используется ID башни, не смотровой площадки."
+      ]
+    },
+    {
+      "class_index": 10,
+      "name": "Большой театр",
+      "cv_poi_id": "moscow/tverskoy/bolshoi_theatre",
+      "dgis_poi_id": "4504127908589159",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/firm/4504127908589159",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 11,
+      "name": "Гостиница «Метрополь»",
+      "cv_poi_id": "moscow/tverskoy/hotel_metropol",
+      "dgis_poi_id": "4504127908386113",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/firm/4504127908386113",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 12,
+      "name": "Гостиница «Националь»",
+      "cv_poi_id": "moscow/tverskoy/hotel_national",
+      "dgis_poi_id": "4504127908386571",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/firm/4504127908386571",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 13,
+      "name": "Малый театр",
+      "cv_poi_id": "moscow/tverskoy/maly_theatre",
+      "dgis_poi_id": "4504127908861956",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/firm/4504127908861956",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 14,
+      "name": "Фонтан «Дружба народов»",
+      "cv_poi_id": "moscow/ostankinskiy/friendship_of_the_peoples",
+      "dgis_poi_id": "70030076661708120",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/70030076661708120",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 15,
+      "name": "Павильон «Казахстан»",
+      "cv_poi_id": "moscow/ostankinskiy/kazakhstan_pavilion",
+      "dgis_poi_id": "4504235282637085",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282637085",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 16,
+      "name": "Павильон «Молдова»",
+      "cv_poi_id": "moscow/ostankinskiy/moldova_pavilion",
+      "dgis_poi_id": "4504235282637100",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282637100",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 17,
+      "name": "«Москвариум»",
+      "cv_poi_id": "moscow/ostankinskiy/moskvarium",
+      "dgis_poi_id": "70000001019672728",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/firm/70000001019672728",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 18,
+      "name": "Павильон №5",
+      "cv_poi_id": "moscow/ostankinskiy/pavilion_5",
+      "dgis_poi_id": "4504235282637045",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282637045",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": [
+        "Используется ID здания, не музея внутри."
+      ]
+    },
+    {
+      "class_index": 19,
+      "name": "Павильон №71",
+      "cv_poi_id": "moscow/ostankinskiy/pavilion_71",
+      "dgis_poi_id": "4504235282637189",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282637189",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": [
+        "ID относится к зданию; по сообщению на странице внутри указан МФЦ. Сверить актуальный фасад."
+      ]
+    },
+    {
+      "class_index": 20,
+      "name": "«Дом полимеров»",
+      "cv_poi_id": "moscow/ostankinskiy/polymer_house",
+      "dgis_poi_id": "70030076783035675",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/70030076783035675",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    },
+    {
+      "class_index": 21,
+      "name": "«Робостанция»",
+      "cv_poi_id": "moscow/ostankinskiy/robostation",
+      "dgis_poi_id": "4504235282637028",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/4504235282637028",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": [
+        "Используется ID здания павильона №2."
+      ]
+    },
+    {
+      "class_index": 22,
+      "name": "Фонтан «Каменный цветок»",
+      "cv_poi_id": "moscow/ostankinskiy/stone_flower",
+      "dgis_poi_id": "70030076683600274",
+      "candidate_dgis_poi_id": null,
+      "source_url": "https://2gis.ru/moscow/geo/70030076683600274",
+      "binding_status": "mapped",
+      "sdk_validation_status": "pending",
+      "review_notes": []
+    }
+  ]
+}

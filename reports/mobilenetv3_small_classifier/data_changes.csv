@@ -1,0 +1,2 @@
+﻿image_id,old_path,new_path,old_poi,new_poi,reason,split
+manual_22b5e97f29f49523,data/raw/manual/Дом Полимеров/XXXL (10).jpg,data/raw/manual/Арка главного входа/XXXL (10).jpg,moscow/ostankinskiy/polymer_house,moscow/ostankinskiy/main_entrance,exact_sha256_manual_move,train

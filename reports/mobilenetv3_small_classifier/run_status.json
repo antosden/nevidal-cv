@@ -1,0 +1,6 @@
+{
+  "status": "complete",
+  "training_started": true,
+  "metrics_available": true,
+  "best_epoch": 14
+}

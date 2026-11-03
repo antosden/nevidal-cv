@@ -1,0 +1,23 @@
+{
+  "status": "fp32_selected_int8_rejected_quality_gate",
+  "source_checkpoint": "models/mobilenetv3_small_classifier/model.pt",
+  "source_checkpoint_sha256": "b03050356a085ed2e5c8190a7ed312624e74efd380b10069419b992616050fb1",
+  "seed": 42,
+  "calibration": {"split": "train", "images": 300, "classes": 23, "one_per_split_group": true},
+  "evaluation_images": {"val": 191, "negative_val": 573, "test": 185, "negative_test": 573},
+  "archived_probability_max_abs_error": 0.0,
+  "pytorch_reference_top1_agreement": 1.0,
+  "tests": {"new_mobile_tests_passed": 15, "related_classifier_and_mapping_tests_passed": 14},
+  "powershell_syntax_check": "passed",
+  "python_compile_check": "passed",
+  "tflite_files_created": true,
+  "docker_execution_verified": true,
+  "execution_performed_by": "user",
+  "fp32": {"hash_checks": "passed", "test_accuracy": 0.8432432432432433, "test_macro_f1": 0.8250630408239104, "top1_agreement": 1.0, "bytes": 6284548},
+  "int8": {"quality_evaluated": true, "validation_gate_passed": false, "val_accuracy": 0.05235602094240838, "val_macro_f1": 0.004326195111399525, "test_evaluated": false, "backend": "builtin_without_default_delegates", "integer_io_adapter": "executed_successfully_in_user_run"},
+  "blocked_by": "Windows OS denies this agent access to Docker Engine and WSL",
+  "private_inputs": ".runtime/mobile_export_v1",
+  "expected_results": ".runtime/mobile_export_result_v1",
+  "published": false,
+  "production_ready": false
+}

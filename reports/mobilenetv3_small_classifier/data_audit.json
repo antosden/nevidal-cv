@@ -1,0 +1,135 @@
+{
+  "counts": {
+    "train": 884,
+    "val": 191,
+    "test": 185,
+    "negative_val": 573,
+    "negative_test": 573
+  },
+  "relocated": [
+    {
+      "image_id": "manual_22b5e97f29f49523",
+      "old_path": "data/raw/manual/Дом Полимеров/XXXL (10).jpg",
+      "new_path": "data/raw/manual/Арка главного входа/XXXL (10).jpg",
+      "old_poi": "moscow/ostankinskiy/polymer_house",
+      "new_poi": "moscow/ostankinskiy/main_entrance",
+      "reason": "exact_sha256_manual_move",
+      "split": "train"
+    }
+  ],
+  "excluded": [
+    {
+      "image_id": "wm_11898215c91cdd84",
+      "split": "train",
+      "file_path": "data/raw/wikimedia/moscow/ostankinskiy/ostankino_tower/64348795.jpg",
+      "reason": "raw_missing"
+    },
+    {
+      "image_id": "manual_298add6add3e98b0",
+      "split": "train",
+      "file_path": "data/raw/manual/Останкинская Телебашня/XXXL (6).jpg",
+      "reason": "raw_missing"
+    },
+    {
+      "image_id": "manual_f6250c73843e54d6",
+      "split": "test",
+      "file_path": "data/raw/manual/Арка главного входа/XXXL7.jpg",
+      "reason": "raw_missing"
+    }
+  ],
+  "content_reviews": [
+    {
+      "image_id": "wm_14146ca48a95c368",
+      "old_sha256": "231ff3f31956e2bcb795567292192c920bb5ee64810dbfdffa1ff42afbf3d09e",
+      "sha256": "66dc71858c4d4f5625ef4e2c6601c6dbca173cc04dc3a39d3f12a91eddec8a56",
+      "poi_id": "moscow/ostankinskiy/ostankino_tower",
+      "split": "train",
+      "reviewer": "codex_visual_review",
+      "note": "Target Ostankino tower visually present after user edit; preserve original split. Multiple POIs visible in some views."
+    },
+    {
+      "image_id": "wm_055d567d2cfc685c",
+      "old_sha256": "018b011d938ef3339362dcaeed2c662540fa964392426561cd47fb141202f28e",
+      "sha256": "e036255bb9d52df3c116ab1e20660ab6d9becde2e041a4938264ce6c58a86550",
+      "poi_id": "moscow/ostankinskiy/ostankino_tower",
+      "split": "train",
+      "reviewer": "codex_visual_review",
+      "note": "Target Ostankino tower visually present after user edit; preserve original split. Multiple POIs visible in some views."
+    },
+    {
+      "image_id": "wm_0f4e41f1efcfe15f",
+      "old_sha256": "04d06303eb89c1233570aa63233b37dab68c3302c70687aa2a452d3d2e5c4fad",
+      "sha256": "1fb13b9edae0a47052373a5f788021061e86c554309ffb137673e12e5977c537",
+      "poi_id": "moscow/ostankinskiy/ostankino_tower",
+      "split": "train",
+      "reviewer": "codex_visual_review",
+      "note": "Target Ostankino tower visually present after user edit; preserve original split. Multiple POIs visible in some views."
+    },
+    {
+      "image_id": "wm_9b8ae7a35e067002",
+      "old_sha256": "c2272944502d9377aa4d0496b3dc11f05ecfc967d77951c2310c82bbce0d046f",
+      "sha256": "c2339ff76269ba8dbca17898221019795fc4b0168d90a2fd568da7b58d876f08",
+      "poi_id": "moscow/ostankinskiy/ostankino_tower",
+      "split": "train",
+      "reviewer": "codex_visual_review",
+      "note": "Target Ostankino tower visually present after user edit; preserve original split. Multiple POIs visible in some views."
+    },
+    {
+      "image_id": "wm_0c6c9b5dd320ea48",
+      "old_sha256": "4598a1dc31602c8353455f2de2e1a9ef9f85058d4a153ef84db00649864282a0",
+      "sha256": "9a98db072eb5d13ed3974bd5b4ec9595271ea0eeb4100d9def6591be8613aa1a",
+      "poi_id": "moscow/ostankinskiy/ostankino_tower",
+      "split": "test",
+      "reviewer": "codex_visual_review",
+      "note": "Target Ostankino tower visually present after user edit; preserve original split. Multiple POIs visible in some views."
+    }
+  ],
+  "sources": {
+    "train": {
+      "manual": 538,
+      "wikimedia_commons": 346
+    },
+    "val": {
+      "manual": 115,
+      "wikimedia_commons": 76
+    },
+    "test": {
+      "manual": 111,
+      "wikimedia_commons": 74
+    },
+    "negative_val": {
+      "wikimedia_commons": 573
+    },
+    "negative_test": {
+      "wikimedia_commons": 573
+    }
+  },
+  "input_csv_sha256": {
+    "train": "2ba399327f33aad14a500308bda7af1c7485aa553611e40f231802ccfecaeead",
+    "val": "9592bc26570f1e2f828951aad5e7b0173df9e3676178dda0d27a37c8754c1e20",
+    "test": "7edd6694ebd26bda6a2a6549de5bdf3db157017f30e727496544feba1ff05b3d",
+    "negative_val": "67b93767b9523a52f52883edda86e3634f3fe256bde4d3680f1f8f78f2ef7285",
+    "negative_test": "e0532ba13b627b23975a8d9c5c15d84ae1e6074cb005053e60be91d2cc316bbc"
+  },
+  "split_snapshot_sha256": {
+    "train": "f5cf39fce2a0499367414d13fb71b1e4c9d69652114200a00bd7d66408cb5f97",
+    "val": "90b5b58791dcb1e117c1bd96d3b334db5b70b753d33d2f7210c8ac217c3f0b87",
+    "test": "8eebe4fe9b4e4042e91d49d0b1f4ef491db597050a9c7cbe83a4dc345b8b62c6",
+    "negative_val": "7c69d870ef5ac951f773751c848b1ce83431f053c85023782c3d0e8aae2ec211",
+    "negative_test": "c967c7c885e832732c866b0f280be525dc86b2ab917137865317d8bb8c8f2e76"
+  },
+  "group_leakage_checks": "passed",
+  "raw_sha256_checks": "passed",
+  "global_annotations_modified": false,
+  "label_reviews_after_model_frozen": [
+    {
+      "image_id": "manual_7cdd028b9708c1f7",
+      "sha256": "915c7e9c780785a35ea2d9149dc16c946aa4047a5d69503e3256014c4dfca888",
+      "old_poi_id": "moscow/ostankinskiy/cosmos",
+      "poi_id": "moscow/ostankinskiy/main_entrance",
+      "label_status": "verified",
+      "reviewer": "codex_visual_review",
+      "review_note": "Unambiguous VDNKh Main Entrance Arch; corrected after evaluation with checkpoint/epoch/policy fixed; preserve original split."
+    }
+  ]
+}

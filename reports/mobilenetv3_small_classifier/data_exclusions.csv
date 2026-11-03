@@ -1,0 +1,4 @@
+﻿image_id,split,file_path,reason
+wm_11898215c91cdd84,train,data/raw/wikimedia/moscow/ostankinskiy/ostankino_tower/64348795.jpg,raw_missing
+manual_298add6add3e98b0,train,data/raw/manual/Останкинская Телебашня/XXXL (6).jpg,raw_missing
+manual_f6250c73843e54d6,test,data/raw/manual/Арка главного входа/XXXL7.jpg,raw_missing
