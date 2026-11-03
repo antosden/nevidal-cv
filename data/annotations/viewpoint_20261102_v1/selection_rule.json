@@ -1,0 +1,16 @@
+{
+  "strata": [
+    "source",
+    "illumination",
+    "scale",
+    "occlusion"
+  ],
+  "exact_sources": true,
+  "max_TV_other_attributes": 0.2,
+  "rule": "Prefer exact joint strata; otherwise bounded matching, 4000 deterministic attempts; R main included in O",
+  "known_session_count_difference_max": 1,
+  "unknown_session_fraction_difference_max": 0.2,
+  "duplicate_family_one_image": true,
+  "independence_not_assumed_for_unknown_sessions": true,
+  "limitation": "Residual framing/light/occlusion differences are reported; not asserted to be a pure causal viewpoint effect"
+}

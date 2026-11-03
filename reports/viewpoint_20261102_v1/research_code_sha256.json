@@ -1,0 +1,14 @@
+{
+  "src/viewpoint_audit.py": "2f12cf0010af20258f2812b9356162f7d87e181d61587e8b7380537a6d8ea53a",
+  "src/viewpoint_evaluation.py": "1232bb509834ed30015c4c87c4090f4c73372fc899311d791dde238764b16aa4",
+  "src/viewpoint_figures.py": "c9186f4afbfca379e57cefce6fe7d5fa3ccb9156648413e9874ebee023ce00d0",
+  "src/viewpoint_finalize.py": "14f983478d8a50f1ead93d212626a84e238c648f328bedbb8bce52bb692a57a8",
+  "src/viewpoint_reporting.py": "7f027c4979e99c69127d592e6f59edbb59191a1b9da7bc8cfbcd0db8914e5d8d",
+  "src/viewpoint_selection.py": "65b84ef95aaf07891cec77f7edff30770c7935a57bddc8cdb026224968f56d10",
+  "src/viewpoint_statistics.py": "74d5bf13978692a91d54d099beffd583e964ddcc18dd746118aade7559dfe7ff",
+  "src/viewpoint_training.py": "e05547b3edf0bd2db713302630e4df3111b9cc5205ad05c6a549496d7c2b202f",
+  "src/small_classifier.py": "30ab1bf6d7b83c5610620bf6dd339839a458fcfd49957a214939116558c37528",
+  "scripts/run_viewpoint_research.py": "2c4bacdb57c10cbc05db261e871b62a116f4f89171d3c62e2894ab06ec85e5d2",
+  "scripts/check_viewpoint_integrity.py": "dc6cd7557a39bbd82d7dcb0378de566aa70ef27f6e2751f311dc0d2440a90cb3",
+  "scripts/execute_viewpoint_notebook.py": "014298e0023f6aecca84c321fab3b36011eef092a0174c0de87bb1adc33c19ba"
+}

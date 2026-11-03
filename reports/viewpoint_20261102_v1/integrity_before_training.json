@@ -1,0 +1,8 @@
+{
+  "historical_val_test_not_in_train": true,
+  "manifests_frozen": true,
+  "selected_raw_files_verified": true,
+  "cache_files": 680,
+  "model_predictions_used_for_selection": false,
+  "previous_work_changed": false
+}

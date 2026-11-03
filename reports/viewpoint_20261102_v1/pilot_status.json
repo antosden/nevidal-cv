@@ -1,0 +1,6 @@
+{
+  "completed": 4,
+  "recipe_review_required": false,
+  "criterion": "warning if final-five-epoch val F1 gain >3pp and best at end; inspect development only",
+  "test_accessed": false
+}

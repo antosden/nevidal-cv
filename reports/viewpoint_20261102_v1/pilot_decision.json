@@ -1,0 +1,19 @@
+{
+  "continue_unchanged": true,
+  "reviewer": "codex_development_review",
+  "completed_pilot_runs": 4,
+  "count_pilot_in_total_12": true,
+  "test_accessed": false,
+  "reviewed": ["pilot_review.csv", "figures/learning_curves.png", "all four history.csv"],
+  "reason": "Both Large curves plateau on validation; best epochs O14/R19, final CE 0.052/0.040. Final-five-epoch F1 gains 0.003/0.006, no convergence warning. Small best epochs18/19; final-five gains -0.009/0.018. No development evidence for selectively extending Large. Preserve common initial20-epoch recipe for all12.",
+  "resources": {
+    "device": "Windows CPU",
+    "threads": 4,
+    "pilot_epoch_seconds_total": 464.598,
+    "observed_process_peak_working_set_bytes": 1941053440,
+    "memory_measurement": "Get-Process python PID5020 during pilot; aggregate process peak, not per-architecture or Android",
+    "feasible_to_complete_remaining_8": true
+  },
+  "configuration_changed": false,
+  "data_or_catalogue_changed_after_pilot": false
+}

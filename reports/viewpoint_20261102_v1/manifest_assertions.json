@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "classes": 7,
+  "seeds": 3,
+  "equal_per_poi_O_R": true,
+  "exact_sources": true,
+  "bounded_attributes_TV": true,
+  "controlled_viewpoint_ratios": true,
+  "all_labels_verified": true,
+  "no_known_split_intersections": true,
+  "independent_unknown_sessions_not_assumed": true,
+  "all_locked_hashes_match": true
+}

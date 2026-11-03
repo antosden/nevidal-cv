@@ -1,0 +1,7 @@
+﻿architecture,mode,seed,repeat,p50_ms,p95_ms,model_bytes,parameters,device,dtype,batch_size,threads,warmups,measurements,scope
+small,R,42,1,12.040249999699881,14.889110000149229,6230039,1525031,Windows CPU; not Android,float32,1,4,20,100,torch forward only; excludes JPEG/preprocessing; no mobile export measured
+small,R,42,2,11.049350001485436,12.7153499999622,6230039,1525031,Windows CPU; not Android,float32,1,4,20,100,torch forward only; excludes JPEG/preprocessing; no mobile export measured
+small,R,42,3,10.94944999749714,11.964790000092762,6230039,1525031,Windows CPU; not Android,float32,1,4,20,100,torch forward only; excludes JPEG/preprocessing; no mobile export measured
+large,R,42,1,22.115850000773207,27.74890499877074,17044559,4210999,Windows CPU; not Android,float32,1,4,20,100,torch forward only; excludes JPEG/preprocessing; no mobile export measured
+large,R,42,2,20.61110000067856,22.759560001031787,17044559,4210999,Windows CPU; not Android,float32,1,4,20,100,torch forward only; excludes JPEG/preprocessing; no mobile export measured
+large,R,42,3,21.208350000961218,24.385320000692445,17044559,4210999,Windows CPU; not Android,float32,1,4,20,100,torch forward only; excludes JPEG/preprocessing; no mobile export measured

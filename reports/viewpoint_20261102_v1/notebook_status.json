@@ -1,0 +1,8 @@
+{
+  "executed": true,
+  "errors": 0,
+  "training_started": false,
+  "photo_bytes_embedded": false,
+  "code_cells": 27,
+  "path": "notebooks/10_mobilenetv3_viewpoint_research.ipynb"
+}

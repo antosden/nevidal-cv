@@ -1,0 +1,13 @@
+# Снимок исследования хранит SHA-256: checkout не должен менять байты или окончания строк.
+/config/research_mobilenetv3_viewpoint.json -text
+/data/annotations/viewpoint_20261102_v1/** -text
+/reports/viewpoint_20261102_v1/** -text
+/notebooks/10_mobilenetv3_viewpoint_research.ipynb -text
+/docs/viewpoint_research.md -text
+/src/viewpoint_*.py -text
+/src/small_classifier.py -text
+/scripts/run_viewpoint_research.py -text
+/scripts/check_viewpoint_integrity.py -text
+/scripts/watch_viewpoint_queue.py -text
+/scripts/execute_viewpoint_notebook.py -text
+/tests/test_viewpoint_statistics.py -text

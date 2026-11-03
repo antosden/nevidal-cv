@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "completed_runs": 12,
+  "paired_prediction_rows": 4404,
+  "saved_metrics_recomputed": true,
+  "contrasts_recomputed": true,
+  "common_test_order": true,
+  "original_selected_files_sha256_verified": 680,
+  "previous_work_sha256_verified": true,
+  "training_signatures_match": true,
+  "steps_per_epoch": 3,
+  "epochs_per_run": 20,
+  "notebook_executed_without_errors": true,
+  "notebook_sha256": "41506aced34bba56c8fb0637d21031e6ed1e5fd2096146b6eda95086af095b94",
+  "statistics_unit_tests_passed": 3
+}

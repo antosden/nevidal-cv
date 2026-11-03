@@ -1,0 +1,9 @@
+{
+  "completed_runs": 12,
+  "planned_runs": 12,
+  "study_status": "exploratory_internal",
+  "independent_test": false,
+  "hypothesis_confirmed": false,
+  "previous_work_sha256_verified": true,
+  "stage": "complete"
+}
