@@ -1,0 +1,58 @@
+{
+  "point": {
+    "F": {
+      "small_O": 0.5432576616975604,
+      "large_O": 0.6191645649338716,
+      "small_R": 0.5729313578737109,
+      "large_R": 0.6064107481598703
+    },
+    "G_O": 0.07590690323631122,
+    "G_R": 0.03347939028615943,
+    "C": 0.04242751295015179,
+    "small_gain": 0.029673696176150493,
+    "large_gain": -0.0127538167740013,
+    "per_seed": [
+      {
+        "seed": 42,
+        "G_O": 0.042081479333123784,
+        "G_R": -0.013237264626567047,
+        "C": 0.05531874395969083
+      },
+      {
+        "seed": 43,
+        "G_O": 0.07953942857191465,
+        "G_R": 0.050892077986698925,
+        "C": 0.028647350585215725
+      },
+      {
+        "seed": 44,
+        "G_O": 0.10609980180389522,
+        "G_R": 0.0627833574983464,
+        "C": 0.04331644430554882
+      }
+    ]
+  },
+  "plan": {
+    "requested_replicates": 5000,
+    "seed": 2026,
+    "unknown_session_images": 225,
+    "sessions_per_poi": {
+      "armenia_pavilion": 13,
+      "central_pavilion": 0,
+      "cosmos_pavilion": 0,
+      "kazakhstan_pavilion": 0,
+      "kyrgyzstan_pavilion": 0,
+      "main_entrance_arch": 12,
+      "moldova_pavilion": 0,
+      "pavilion_71": 0,
+      "robostation": 0
+    },
+    "feasible": false,
+    "scheme": "paired clusters: shared outings jointly, sessions within fixed POI"
+  },
+  "performed_replicates": 0,
+  "C_ci95": null,
+  "G_R_ci95": null,
+  "decision": "Неопределённый результат: история съёмок неполная.",
+  "hypothesis_supported": false
+}

@@ -1,0 +1,24 @@
+{
+  "classes": 9,
+  "train_pool": 181,
+  "val": 112,
+  "test": 260,
+  "train_labels": "human_confirmed",
+  "attributes_used": [
+    "viewpoint",
+    "illumination",
+    "scale",
+    "occlusion"
+  ],
+  "split_hashes_disjoint": true,
+  "known_visits_disjoint": true,
+  "novel_closed_test": false,
+  "annotation_decisions": {
+    "controls_visual_reviewed": true,
+    "known_visit_and_duplicate_components_kept_together": true,
+    "train_pool_fixed_by_user": true,
+    "cosmos_folder_labels_accepted": true,
+    "unknown_capture_history_not_claimed_independent": true
+  },
+  "old_models_loaded": false
+}

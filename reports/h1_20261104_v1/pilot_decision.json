@@ -1,0 +1,9 @@
+{
+ "continue_unchanged": true,
+ "reason": "Сохраняем заранее заданный бюджет 20 эпох для всех конфигураций. Large обучилась на train: итоговый loss 0,0415 в О и 0,0531 в Р. В режиме О лучший validation Macro-F1 достигнут на 15-й эпохе. В Р и у Small validation ещё меняется к 20-й эпохе, поэтому полная сходимость не заявляется. Результат относится к сравнению при фиксированном бюджете. Test не использовался при этом решении.",
+ "development_only": true,
+ "test_accessed": false,
+ "all_four_pilot_runs_count_in_final_12": true,
+ "convergence_warnings_retained": true,
+ "claims_global_optimum": false
+}

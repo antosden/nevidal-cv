@@ -1,0 +1,32 @@
+[
+  {
+    "id": 541,
+    "poi": "armenia_pavilion",
+    "reason": "connected_to_train"
+  },
+  {
+    "id": 600,
+    "poi": "main_entrance_arch",
+    "reason": "connected_to_train"
+  },
+  {
+    "id": 609,
+    "poi": "main_entrance_arch",
+    "reason": "connected_to_train"
+  },
+  {
+    "id": 610,
+    "poi": "main_entrance_arch",
+    "reason": "connected_to_train"
+  },
+  {
+    "id": 301,
+    "poi": "moldova_pavilion",
+    "reason": "near_duplicate_control"
+  },
+  {
+    "id": 1028,
+    "poi": "kyrgyzstan_pavilion",
+    "reason": "near_duplicate_control"
+  }
+]

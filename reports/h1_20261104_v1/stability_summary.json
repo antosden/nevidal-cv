@@ -1,0 +1,12 @@
+{
+  "seed_count": 3,
+  "C_positive_seeds": 3,
+  "both_point_thresholds_seeds": 1,
+  "loo_C_positive": 8,
+  "loo_total": 9,
+  "loo_C_min_pp": -0.8311627482793275,
+  "loo_C_max_pp": 6.56006439353225,
+  "analysis": "descriptive_post_hoc",
+  "confidence_intervals": false,
+  "original_hypothesis_test_replaced": false
+}

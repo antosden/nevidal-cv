@@ -1,0 +1,7 @@
+{
+  "training_code_sha256": "d734037a164e49029e438032905e54de05f2f857eaab84e6722ed612b97e346d",
+  "current_code_sha256": "b5b37e636f336956d969a2d95b299d2591309e1e3c53e2633f4e9a34462190d7",
+  "change": "TorchScript bytes IO to support Unicode Windows paths",
+  "model_parameters_changed": false,
+  "training_repeated": false
+}

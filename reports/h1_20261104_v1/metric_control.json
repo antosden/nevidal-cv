@@ -1,0 +1,9 @@
+{
+  "perfect_f1": 1,
+  "inverted_f1": 0,
+  "half_f1": 0.5,
+  "G_O": 1.0,
+  "G_R": 0.5,
+  "C": 0.5,
+  "passed": true
+}

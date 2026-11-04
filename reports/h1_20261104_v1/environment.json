@@ -1,0 +1,10 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "torch": "2.14.1+cpu",
+  "torchvision": "0.29.1+cpu",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "cpu": "AMD64 Family 23 Model 8 Stepping 2, AuthenticAMD",
+  "threads": 4,
+  "device": "CPU",
+  "dtype": "float32"
+}

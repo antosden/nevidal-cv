@@ -1,0 +1,18 @@
+{
+  "requested_replicates": 5000,
+  "seed": 2026,
+  "unknown_session_images": 225,
+  "sessions_per_poi": {
+    "armenia_pavilion": 13,
+    "central_pavilion": 0,
+    "cosmos_pavilion": 0,
+    "kazakhstan_pavilion": 0,
+    "kyrgyzstan_pavilion": 0,
+    "main_entrance_arch": 12,
+    "moldova_pavilion": 0,
+    "pavilion_71": 0,
+    "robostation": 0
+  },
+  "feasible": false,
+  "scheme": "paired clusters: shared outings jointly, sessions within fixed POI"
+}

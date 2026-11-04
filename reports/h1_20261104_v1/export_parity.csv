@@ -1,0 +1,3 @@
+﻿architecture,max_logit_difference,predictions_equal,file_bytes,parameters,dtype,format
+small,3.993511199951172e-05,True,6119031,1527081,float32,TorchScript
+large,1.049041748046875e-05,True,16846069,4213561,float32,TorchScript

@@ -1,0 +1,5 @@
+{
+  "change": "Notebook uses csv and HTML tables; no pandas dependency. Training and evaluation are unchanged.",
+  "final_script_sha256": "0673f12189c310480d94a8c59876b07d9764232af91b1d7bee753571a7a6c764",
+  "training_snapshot": "training_code_snapshot.py"
+}

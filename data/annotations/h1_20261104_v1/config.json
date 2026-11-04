@@ -1,0 +1,25 @@
+{
+  "run_id": "h1_20261104_v1",
+  "epochs": 20,
+  "batch_size": 32,
+  "learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "threads": 4,
+  "input_size": 224,
+  "pretraining": "IMAGENET1K_V1",
+  "batchnorm": "all_train",
+  "sampler": "class_balanced_replacement",
+  "selection": "max_validation_macro_f1_then_earlier",
+  "bootstrap_replicates": 5000,
+  "bootstrap_seed": 2026,
+  "threshold_C": 0.03,
+  "threshold_G_R": 0.03,
+  "train_labels": "human_confirmed",
+  "eval_status": "exploratory_internal",
+  "train_only_h1_experiment": true
+}

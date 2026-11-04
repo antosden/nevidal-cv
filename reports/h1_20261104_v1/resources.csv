@@ -1,0 +1,7 @@
+﻿architecture,repeat,forward_p50_ms,forward_p95_ms,full_p50_ms,full_p95_ms,warmups,measurements,threads,device,dtype,runtime,scope
+small,1,8.477449999190867,9.658469997702923,34.192149998489185,41.923450000103905,20,100,4,Windows CPU,float32,TorchScript,file decode + RGB/pad/normalize + model; excludes camera and network
+large,1,16.751199998907396,19.294310001532722,41.836399999738205,50.62556000011681,20,100,4,Windows CPU,float32,TorchScript,file decode + RGB/pad/normalize + model; excludes camera and network
+large,2,16.634050001812284,19.473529997776495,42.12905000167666,50.77847499924246,20,100,4,Windows CPU,float32,TorchScript,file decode + RGB/pad/normalize + model; excludes camera and network
+small,2,8.262299999842071,9.068710000246938,33.46149999924819,41.17101500014542,20,100,4,Windows CPU,float32,TorchScript,file decode + RGB/pad/normalize + model; excludes camera and network
+small,3,8.263150000857422,9.412814998722752,33.553350000147475,40.774209998380684,20,100,4,Windows CPU,float32,TorchScript,file decode + RGB/pad/normalize + model; excludes camera and network
+large,3,16.804300001240335,18.97567499872821,42.131600001084735,50.02378499975747,20,100,4,Windows CPU,float32,TorchScript,file decode + RGB/pad/normalize + model; excludes camera and network

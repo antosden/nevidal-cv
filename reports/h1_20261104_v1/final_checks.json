@@ -1,0 +1,11 @@
+{
+  "completed_runs": 12,
+  "notebook_errors": 0,
+  "metrics_recomputed_from_predictions": true,
+  "train_only_h1_experiment": true,
+  "all_runs_same_code_and_manifests": true,
+  "raw_sha256_verified": true,
+  "cache_sha256_verified": true,
+  "old_trained_weights_loaded": false,
+  "model_release": false
+}

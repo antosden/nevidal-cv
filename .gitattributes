@@ -11,3 +11,11 @@
 /scripts/watch_viewpoint_queue.py -text
 /scripts/execute_viewpoint_notebook.py -text
 /tests/test_viewpoint_statistics.py -text
+
+# H1: сохраняем байты зафиксированных артефактов и кода.
+/config/h1_20261104_v1_bundle.json -text
+/data/annotations/h1_20261104_v1/** -text
+/reports/h1_20261104_v1/** -text
+/notebooks/H1_mobilenetv3_viewpoint_research.ipynb -text
+/scripts/h1_research.py -text
+/scripts/h1_build_notebook.py -text
